@@ -1,21 +1,18 @@
 package br.com.alura.clientelo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
-import java.util.Scanner;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
 
@@ -23,7 +20,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
         Pedido[] pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
-
 
         int totalDeProdutosVendidos = 0;
         int totalDePedidosRealizados = 0;
@@ -84,5 +80,10 @@ public class Main {
         logger.info("PEDIDO MAIS BARATO: {} ({})", NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(pedidoMaisBarato.getPreco().multiply(new BigDecimal(pedidoMaisBarato.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN)), pedidoMaisBarato.getProduto());
         logger.info("PEDIDO MAIS CARO: {} ({})\n", NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(pedidoMaisCaro.getPreco().multiply(new BigDecimal(pedidoMaisCaro.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN)), pedidoMaisCaro.getProduto());
         logger.info("### FIM DO RELATÓRIO ###");
+        
+        OperacaoPedidoResultado ordenacaoResultado = new OperacaoPedidoResultado(Arrays.asList(pedidos));
+        OrdenacaoPedido<Pedido> ordenacaoPedido = new OrdenacaoPedidoImpl();
+        ordenacaoResultado.imprimirTopCategoria(ordenacaoPedido);
+        ordenacaoResultado.imprimirTopQuantidade(ordenacaoPedido);
     }
 }
