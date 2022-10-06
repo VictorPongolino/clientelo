@@ -14,6 +14,14 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.alura.clientelo.reports.OperacaoPedido;
+import br.com.alura.clientelo.reports.OrdenacaoPedido;
+import br.com.alura.clientelo.reports.OrdenacaoPedidoImpl;
+import br.com.alura.clientelo.reports.RelatorioHelper;
+import br.com.alura.clientelo.reports.RelatorioProdutoesCarosCategoria;
+import br.com.alura.clientelo.reports.RelatorioProdutosVendidos;
+import br.com.alura.clientelo.reports.RelatorioVendasCategoria;
+
 public class Main {
 
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -81,9 +89,12 @@ public class Main {
         logger.info("PEDIDO MAIS CARO: {} ({})\n", NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(pedidoMaisCaro.getPreco().multiply(new BigDecimal(pedidoMaisCaro.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN)), pedidoMaisCaro.getProduto());
         logger.info("### FIM DO RELATÓRIO ###");
         
-        OperacaoPedidoResultado ordenacaoResultado = new OperacaoPedidoResultado(Arrays.asList(pedidos));
+        List<Pedido> todosPedidos = Arrays.asList(pedidos);
         OrdenacaoPedido<Pedido> ordenacaoPedido = new OrdenacaoPedidoImpl();
-        ordenacaoResultado.imprimirTopCategoria(ordenacaoPedido);
-        ordenacaoResultado.imprimirTopQuantidade(ordenacaoPedido);
+        
+        RelatorioHelper<Pedido> relatorio = new RelatorioHelper<>(ordenacaoPedido);
+        relatorio.show(new RelatorioProdutosVendidos(todosPedidos));
+        relatorio.show(new RelatorioVendasCategoria(todosPedidos));
+        relatorio.show(new RelatorioProdutoesCarosCategoria(todosPedidos));
     }
 }

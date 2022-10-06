@@ -1,6 +1,8 @@
-package br.com.alura.clientelo;
+package br.com.alura.clientelo.reports.sort;
 
 import java.util.Comparator;
+
+import br.com.alura.clientelo.Pedido;
 
 public class PedidoComparator implements Comparator<Pedido> {
 	@Override
