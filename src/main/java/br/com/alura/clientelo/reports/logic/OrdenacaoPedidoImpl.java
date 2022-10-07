@@ -1,6 +1,7 @@
 package br.com.alura.clientelo.reports.logic;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 import br.com.alura.clientelo.Pedido;
@@ -15,6 +16,8 @@ public class OrdenacaoPedidoImpl implements OrdenacaoPedido<Pedido> {
 	private static final Comparator<Pedido> QUANTIDADE_COMPARATOR = new QuantidadeComparator().reversed();
 	private static final Comparator<Pedido> CATEGORIA_COMPARATOR = new CategoriaPedidoComparator();
 	private static final Comparator<Pedido> PEDIDO_COMPARATOR = new PedidoComparator();
+
+	private static final Comparator<Pedido> CLIENTES_LUCRATIVOS_COMPARATOR = new LucrativoComparator();
 
 	@Override
 	public List<Pedido> ordenarQuantidade(List<Pedido> pedidos) {
@@ -58,6 +61,23 @@ public class OrdenacaoPedidoImpl implements OrdenacaoPedido<Pedido> {
 			quantidadeFiltrada.putIfAbsent(nomeCliente, quantidadePedidosCliente);
 		}
 		return quantidadeFiltrada;
+	}
+
+	@Override
+	public Map<String, TopClienteGastos> ordenarPorClienteLucrativo(List<Pedido> lista) {
+		List<Pedido> pedidos = ordenar(lista, NOME_CLIENTE_COMPARATOR);
+		Map<String, TopClienteGastos> tops = new LinkedHashMap<>();
+		for (Pedido pedido : pedidos) {
+			BigDecimal totalPedido = pedido.getPreco().multiply(new BigDecimal(pedido.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN);
+			String nomeCliente = pedido.getCliente();
+			if (tops.containsKey(nomeCliente)) {
+				TopClienteGastos topClienteGastos = tops.get(nomeCliente);
+				topClienteGastos.contabilizar(pedido.getQuantidade(), totalPedido);
+				tops.put(nomeCliente, topClienteGastos);
+			}
+			tops.putIfAbsent(nomeCliente, new TopClienteGastos(pedido.getQuantidade(), totalPedido));
+		}
+		return tops;
 	}
 
 	private List<Pedido> ordenar(List<Pedido> lista, Comparator<Pedido> comparator) {

@@ -11,4 +11,6 @@ public interface OrdenacaoPedido<T> {
 	List<T> ordenarPorCategoria(List<T> lista);
 	Map<String, T> ordenarPorCategoriaMaiorPreco(List<Pedido> pedidos);
 	Map<String, Integer> ordenarPorClientes(List<T> lista);
+
+	Map<String, TopClienteGastos> ordenarPorClienteLucrativo(List<T> lista);
 }
