@@ -1,14 +1,17 @@
 package br.com.alura.clientelo.reports;
 
+import br.com.alura.clientelo.reports.logic.OrdenacaoPedido;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
 public abstract class OperacaoPedido<T> {
 	private final static NumberFormat PT_BR_CURRENCY = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-	private List<T> pedidos;
+	private final List<T> pedidos;
 	
 	public OperacaoPedido(List<T> pedidos) {
 		this.pedidos = pedidos;
@@ -27,7 +30,7 @@ public abstract class OperacaoPedido<T> {
 	}
 
 	public List<T> getPedidos() {
-		return pedidos;
+		return Collections.unmodifiableList(pedidos);
 	}
 
 	public abstract void accept(OrdenacaoPedido<T> ordenacaoPedido);

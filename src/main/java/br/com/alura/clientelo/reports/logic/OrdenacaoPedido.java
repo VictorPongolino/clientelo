@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.reports;
+package br.com.alura.clientelo.reports.logic;
 
 import java.util.List;
 import java.util.Map;
@@ -10,4 +10,5 @@ public interface OrdenacaoPedido<T> {
 	List<T> ordenarQuantidade(List<T> lista);
 	List<T> ordenarPorCategoria(List<T> lista);
 	Map<String, T> ordenarPorCategoriaMaiorPreco(List<Pedido> pedidos);
+	Map<String, Integer> ordenarPorClientes(List<T> lista);
 }

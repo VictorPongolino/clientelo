@@ -3,6 +3,7 @@ package br.com.alura.clientelo.reports;
 import java.util.List;
 
 import br.com.alura.clientelo.Pedido;
+import br.com.alura.clientelo.reports.logic.OrdenacaoPedido;
 
 public class RelatorioProdutosVendidos extends OperacaoPedido<Pedido> {
 	

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.alura.clientelo.Pedido;
+import br.com.alura.clientelo.reports.logic.OrdenacaoPedido;
 
 public class RelatorioProdutoesCarosCategoria extends OperacaoPedido<Pedido>{
 

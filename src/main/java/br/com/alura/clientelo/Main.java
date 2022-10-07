@@ -1,32 +1,23 @@
 package br.com.alura.clientelo;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URISyntaxException;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import br.com.alura.clientelo.reports.*;
+import br.com.alura.clientelo.reports.logic.OrdenacaoPedido;
+import br.com.alura.clientelo.reports.logic.OrdenacaoPedidoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import br.com.alura.clientelo.reports.OperacaoPedido;
-import br.com.alura.clientelo.reports.OrdenacaoPedido;
-import br.com.alura.clientelo.reports.OrdenacaoPedidoImpl;
-import br.com.alura.clientelo.reports.RelatorioHelper;
-import br.com.alura.clientelo.reports.RelatorioProdutoesCarosCategoria;
-import br.com.alura.clientelo.reports.RelatorioProdutosVendidos;
-import br.com.alura.clientelo.reports.RelatorioVendasCategoria;
 
 public class Main {
 
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) {
         Pedido[] pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
 
         int totalDeProdutosVendidos = 0;
@@ -96,5 +87,6 @@ public class Main {
         relatorio.show(new RelatorioProdutosVendidos(todosPedidos));
         relatorio.show(new RelatorioVendasCategoria(todosPedidos));
         relatorio.show(new RelatorioProdutoesCarosCategoria(todosPedidos));
+        relatorio.show(new RelatorioQuantidadePorCliente(todosPedidos));
     }
 }
