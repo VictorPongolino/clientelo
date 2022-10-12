@@ -16,11 +16,7 @@ public class RelatorioClientesLucrativos extends OperacaoPedido<Pedido> {
     public void accept(OrdenacaoPedido<Pedido> ordenacaoPedido) {
         printTitle("Relatório de clientes mais lucrativos");
         for (Map.Entry<String, TopClienteGastos> pedidos : ordenacaoPedido.ordenarPorClienteLucrativo(getPedidos()).entrySet()) {
-            System.out.printf("""
-                   NOME: %s
-                   Nº DE PEDIDOS: %d
-                   MONTANTE GASTO: %s\n
-                    """, pedidos.getKey(), pedidos.getValue().getQuantidade(), pedidos.getValue().getTotalGasto());
+            System.out.printf("NOME: %s\nNº DE PEDIDOS: %d\nMONTANTE GASTO: %s\n\n", pedidos.getKey(), pedidos.getValue().getQuantidade(), toDinheiro(pedidos.getValue().getTotalGasto()));
         }
     }
 }

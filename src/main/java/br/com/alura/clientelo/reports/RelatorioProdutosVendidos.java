@@ -16,10 +16,7 @@ public class RelatorioProdutosVendidos extends OperacaoPedido<Pedido> {
 		printTitle("Relatório de produtos mais vendidos");
 		List<Pedido> ordenarPorCategoria = ordenacaoPedido.ordenarQuantidade(getPedidos());
 		for (Pedido pedido : ordenarPorCategoria) {
-			System.out.printf("""
-					Nome: %s
-					Quantidade: %d\n
-					""", pedido.getProduto(), pedido.getQuantidade());
+			System.out.printf("Nome: %s\nQuantidade: %d\n", pedido.getProduto(), pedido.getQuantidade());
 		}
 	}
 

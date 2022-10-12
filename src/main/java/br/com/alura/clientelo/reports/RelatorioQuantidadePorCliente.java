@@ -16,10 +16,7 @@ public class RelatorioQuantidadePorCliente extends OperacaoPedido<Pedido> {
         printTitle("Relatório de clientes fiéis");
         Map<String, Integer> quantidadePedidoCliete = ordenacaoPedido.ordenarPorClientes(getPedidos());
         for (Map.Entry<String, Integer> relatorioQuantidadePedidoCliente : quantidadePedidoCliete.entrySet()) {
-            System.out.printf("""
-                    Nº DE PEDIDOS: %s
-                    NOME: %s\n
-                    """, relatorioQuantidadePedidoCliente.getValue(), relatorioQuantidadePedidoCliente.getKey());
+            System.out.printf("Nº DE PEDIDOS: %s\nNOME: %s\n", relatorioQuantidadePedidoCliente.getValue(), relatorioQuantidadePedidoCliente.getKey());
         }
     }
 }

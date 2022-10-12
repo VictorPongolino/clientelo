@@ -18,11 +18,7 @@ public class RelatorioProdutoesCarosCategoria extends OperacaoPedido<Pedido>{
 		Map<String, Pedido> ordenarPorCategoriaMaiorPreco = ordenacaoPedido.ordenarPorCategoriaMaiorPreco(getPedidos());
 		for (Map.Entry<String, Pedido> pedidoEntrySet : ordenarPorCategoriaMaiorPreco.entrySet()) {
 			Pedido pedido = pedidoEntrySet.getValue();
-			System.out.printf("""
-				CATEGORIA: %s
-				PRODUTO: %s
-				PREÇO: %s\n
-			""", pedidoEntrySet.getKey(), pedido.getProduto(), toDinheiro(pedido.getPreco()));
+			System.out.printf("CATEGORIA: %s\nPRODUTO: %s\nPREÇO: %s\n", pedidoEntrySet.getKey(), pedido.getProduto(), toDinheiro(pedido.getPreco()));
 		}		
 	}
 }

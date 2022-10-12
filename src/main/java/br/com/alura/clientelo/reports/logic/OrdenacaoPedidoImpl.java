@@ -65,19 +65,30 @@ public class OrdenacaoPedidoImpl implements OrdenacaoPedido<Pedido> {
 
 	@Override
 	public Map<String, TopClienteGastos> ordenarPorClienteLucrativo(List<Pedido> lista) {
-		List<Pedido> pedidos = ordenar(lista, NOME_CLIENTE_COMPARATOR);
+		List<Pedido> pedidos = ordenar(lista, CLIENTES_LUCRATIVOS_COMPARATOR.thenComparing(NOME_CLIENTE_COMPARATOR));
 		Map<String, TopClienteGastos> tops = new LinkedHashMap<>();
 		for (Pedido pedido : pedidos) {
 			BigDecimal totalPedido = pedido.getPreco().multiply(new BigDecimal(pedido.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN);
 			String nomeCliente = pedido.getCliente();
 			if (tops.containsKey(nomeCliente)) {
 				TopClienteGastos topClienteGastos = tops.get(nomeCliente);
-				topClienteGastos.contabilizar(pedido.getQuantidade(), totalPedido);
+				topClienteGastos.contabilizar(1, totalPedido);
 				tops.put(nomeCliente, topClienteGastos);
 			}
-			tops.putIfAbsent(nomeCliente, new TopClienteGastos(pedido.getQuantidade(), totalPedido));
+			tops.putIfAbsent(nomeCliente, new TopClienteGastos(1, totalPedido));
 		}
-		return tops;
+		return limiteFiltro(tops, 2);
+	}
+
+	private <R,T> Map<R, T> limiteFiltro(Map<R, T> mapa, int limite) {
+		Map<R, T> filtrados = new LinkedHashMap<>();
+
+		int index = 0;
+		for (Map.Entry<R, T> elemento : mapa.entrySet()) {
+			if (++index > limite) break;
+			filtrados.put(elemento.getKey(), elemento.getValue());
+		}
+		return filtrados;
 	}
 
 	private List<Pedido> ordenar(List<Pedido> lista, Comparator<Pedido> comparator) {

@@ -16,11 +16,7 @@ public class RelatorioVendasCategoria extends OperacaoPedido<Pedido> {
 		printTitle("Relatório de vendas por categoria");
 		List<Pedido> ordenarPorCategoria = ordenacaoPedido.ordenarPorCategoria(getPedidos());
 		for (Pedido pedido : ordenarPorCategoria) {
-			System.out.printf("""
-					Categoria: %s
-					Nome: %s
-					Montante: %s\n
-					""", pedido.getCategoria(), pedido.getProduto(), toDinheiro(pedido.getPreco()));
+			System.out.printf("Categoria: %s\nNome: %s\nMontante: %s\nW", pedido.getCategoria(), pedido.getProduto(), toDinheiro(pedido.getPreco()));
 		}
 	}
 
