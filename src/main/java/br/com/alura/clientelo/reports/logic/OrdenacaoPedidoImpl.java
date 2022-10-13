@@ -3,49 +3,46 @@ package br.com.alura.clientelo.reports.logic;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import br.com.alura.clientelo.Pedido;
-import br.com.alura.clientelo.reports.sort.CategoriaPedidoComparator;
 import br.com.alura.clientelo.reports.sort.NomeClienteComparator;
-import br.com.alura.clientelo.reports.sort.PedidoComparator;
 import br.com.alura.clientelo.reports.sort.QuantidadeComparator;
 
 public class OrdenacaoPedidoImpl implements OrdenacaoPedido<Pedido> {
 
 	private static final Comparator<Pedido> NOME_CLIENTE_COMPARATOR = new NomeClienteComparator();
 	private static final Comparator<Pedido> QUANTIDADE_COMPARATOR = new QuantidadeComparator().reversed();
-	private static final Comparator<Pedido> CATEGORIA_COMPARATOR = new CategoriaPedidoComparator();
-	private static final Comparator<Pedido> PEDIDO_COMPARATOR = new PedidoComparator();
 
 	private static final Comparator<Pedido> CLIENTES_LUCRATIVOS_COMPARATOR = new LucrativoComparator();
 
 	@Override
 	public List<Pedido> ordenarQuantidade(List<Pedido> pedidos) {
-		return ordenar(pedidos, PEDIDO_COMPARATOR).subList(0, 3);
+		return pedidos.stream()
+				.sorted(Comparator.comparing(Pedido::getQuantidade).reversed())
+				.limit(3)
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public List<Pedido> ordenarPorCategoria(List<Pedido> pedidos) {
-		return ordenar(pedidos, CATEGORIA_COMPARATOR);
+	public Map<String, QuantidadeCategoria> ordenarPorCategoria(List<Pedido> pedidos) {
+		return pedidos.stream()
+				.sorted(Comparator.comparing(Pedido::getCategoria))
+				.collect(Collectors.toMap(Pedido::getCategoria, valor -> new QuantidadeCategoria(valor.getQuantidade(), valor.getPreco().multiply(new BigDecimal(valor.getQuantidade()))), (k,v) -> {
+					k.atualizar(v.getQuantidade(), v.getMontante());
+					return k;
+				}));
 	}
 	
 	@Override
 	public Map<String, Pedido> ordenarPorCategoriaMaiorPreco(List<Pedido> pedidos) {
-		List<Pedido> ordenarPorCategoria = ordenarPorCategoria(pedidos);
-		Map<String, Pedido> pedidosFiltrados = new LinkedHashMap<>();
-		for (Pedido pedido : ordenarPorCategoria) {
-			String categoria = pedido.getCategoria();
-			if (pedidosFiltrados.containsKey(categoria)) {
-				BigDecimal preco = pedidosFiltrados.get(categoria).getPreco();
-				if (preco.compareTo(pedido.getPreco()) < 0) {
-					pedidosFiltrados.put(categoria, pedido);
-				}
-			}
-			
-			pedidosFiltrados.putIfAbsent(categoria, pedido);
-		}
-		
-		return pedidosFiltrados;
+		return pedidos.stream()
+				.sorted(Comparator.comparing(Pedido::getCategoria))
+				.collect(Collectors.toMap(Pedido::getCategoria, pedido -> pedido, (k, v) -> {
+					BigDecimal preco1 = k.getPreco().multiply(new BigDecimal(k.getQuantidade()));
+					BigDecimal preco2 = v.getPreco().multiply(new BigDecimal(v.getQuantidade()));
+					return preco1.compareTo(preco2) > 0 ? k : v;
+				}, LinkedHashMap::new));
 	}
 
 	@Override

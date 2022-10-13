@@ -1,7 +1,6 @@
 package br.com.alura.clientelo.reports;
 
 import java.util.List;
-import java.util.Map;
 
 import br.com.alura.clientelo.Pedido;
 import br.com.alura.clientelo.reports.logic.OrdenacaoPedido;
@@ -15,10 +14,8 @@ public class RelatorioProdutoesCarosCategoria extends OperacaoPedido<Pedido>{
 	@Override
 	public void accept(OrdenacaoPedido<Pedido> ordenacaoPedido) {
 		printTitle("Relatório de produtos mais caros de cada categoria");
-		Map<String, Pedido> ordenarPorCategoriaMaiorPreco = ordenacaoPedido.ordenarPorCategoriaMaiorPreco(getPedidos());
-		for (Map.Entry<String, Pedido> pedidoEntrySet : ordenarPorCategoriaMaiorPreco.entrySet()) {
-			Pedido pedido = pedidoEntrySet.getValue();
-			System.out.printf("CATEGORIA: %s\nPRODUTO: %s\nPREÇO: %s\n", pedidoEntrySet.getKey(), pedido.getProduto(), toDinheiro(pedido.getPreco()));
-		}		
+		ordenacaoPedido.ordenarPorCategoriaMaiorPreco(getPedidos()).forEach((categoria, pedido) -> {
+				System.out.printf("CATEGORIA: %s\nPRODUTO: %s\nPREÇO: %s\n\n", categoria, pedido.getProduto(), toDinheiro(pedido.getPreco()));
+			});
 	}
 }

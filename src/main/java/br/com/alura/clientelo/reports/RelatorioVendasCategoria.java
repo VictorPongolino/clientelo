@@ -14,10 +14,9 @@ public class RelatorioVendasCategoria extends OperacaoPedido<Pedido> {
 	@Override
 	public void accept(OrdenacaoPedido<Pedido> ordenacaoPedido) {
 		printTitle("Relatório de vendas por categoria");
-		List<Pedido> ordenarPorCategoria = ordenacaoPedido.ordenarPorCategoria(getPedidos());
-		for (Pedido pedido : ordenarPorCategoria) {
-			System.out.printf("Categoria: %s\nNome: %s\nMontante: %s\nW", pedido.getCategoria(), pedido.getProduto(), toDinheiro(pedido.getPreco()));
-		}
+		ordenacaoPedido.ordenarPorCategoria(getPedidos()).forEach((categoria, pedido) -> {
+			System.out.printf("Categoria: %s\nQuantidade: %s\nMontante: %s\n\n", categoria, pedido.getQuantidade(), toDinheiro(pedido.getMontante()));
+		});
 	}
 
 }

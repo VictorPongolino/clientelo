@@ -8,7 +8,7 @@ import br.com.alura.clientelo.Pedido;
 public interface OrdenacaoPedido<T> {
 
 	List<T> ordenarQuantidade(List<T> lista);
-	List<T> ordenarPorCategoria(List<T> lista);
+	Map<String, QuantidadeCategoria> ordenarPorCategoria(List<T> lista);
 	Map<String, T> ordenarPorCategoriaMaiorPreco(List<Pedido> pedidos);
 	Map<String, Integer> ordenarPorClientes(List<T> lista);
 
