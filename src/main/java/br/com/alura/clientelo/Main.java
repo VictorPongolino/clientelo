@@ -87,7 +87,7 @@ public class Main {
 //        relatorio.show(new RelatorioProdutosVendidos(todosPedidos));
 //        relatorio.show(new RelatorioVendasCategoria(todosPedidos));
 //        relatorio.show(new RelatorioProdutoesCarosCategoria(todosPedidos));
-        relatorio.show(new RelatorioQuantidadePorCliente(todosPedidos));
-//        relatorio.show(new RelatorioClientesLucrativos(todosPedidos));
+//        relatorio.show(new RelatorioQuantidadePorCliente(todosPedidos));
+        relatorio.show(new RelatorioClientesLucrativos(todosPedidos));
     }
 }

@@ -5,16 +5,11 @@ import java.math.RoundingMode;
 import java.util.*;
 
 import br.com.alura.clientelo.Pedido;
-import br.com.alura.clientelo.reports.sort.NomeClienteComparator;
 
 import static java.util.Comparator.*;
 import static java.util.stream.Collectors.*;
 
 public class OrdenacaoPedidoImpl implements OrdenacaoPedido<Pedido> {
-
-	private static final Comparator<Pedido> NOME_CLIENTE_COMPARATOR = new NomeClienteComparator();
-
-	private static final Comparator<Pedido> CLIENTES_LUCRATIVOS_COMPARATOR = new LucrativoComparator();
 
 	@Override
 	public List<Pedido> ordenarQuantidade(List<Pedido> pedidos) {
@@ -50,7 +45,7 @@ public class OrdenacaoPedidoImpl implements OrdenacaoPedido<Pedido> {
 		LinkedHashMap<String, Integer> ordemPorClientes = lista.stream()
 					.sorted(comparing(Pedido::getCliente))
 					.collect(groupingBy(Pedido::getCliente, LinkedHashMap::new, summingInt(x -> 1)));
-		// TODO: Ver se consegue chamar de alguma forma o groupingBy
+
 		return ordemPorClientes.entrySet()
 				.stream()
 				.sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
@@ -59,35 +54,18 @@ public class OrdenacaoPedidoImpl implements OrdenacaoPedido<Pedido> {
 
 	@Override
 	public Map<String, TopClienteGastos> ordenarPorClienteLucrativo(List<Pedido> lista) {
-		List<Pedido> pedidos = ordenar(lista, CLIENTES_LUCRATIVOS_COMPARATOR.thenComparing(NOME_CLIENTE_COMPARATOR));
 		Map<String, TopClienteGastos> tops = new LinkedHashMap<>();
-		for (Pedido pedido : pedidos) {
-			BigDecimal totalPedido = pedido.getPreco().multiply(new BigDecimal(pedido.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN);
-			String nomeCliente = pedido.getCliente();
-			if (tops.containsKey(nomeCliente)) {
-				TopClienteGastos topClienteGastos = tops.get(nomeCliente);
-				topClienteGastos.contabilizar(1, totalPedido);
-				tops.put(nomeCliente, topClienteGastos);
-			}
-			tops.putIfAbsent(nomeCliente, new TopClienteGastos(1, totalPedido));
-		}
-		return limiteFiltro(tops, 2);
-	}
+		lista.stream()
+			.sorted(comparing(Pedido::getCliente))
+			.sorted((o1, o2) -> o2.getPreco().multiply(new BigDecimal(o2.getQuantidade())).compareTo(o1.getPreco().multiply(new BigDecimal(o1.getQuantidade()))))
+			.forEach(pedido -> {
+				BigDecimal totalPedido = pedido.getPreco().multiply(new BigDecimal(pedido.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN);
+				tops.merge(pedido.getCliente(), new TopClienteGastos(1, totalPedido), (cliente1, cliente2) -> {
+					cliente1.contabilizar(1, totalPedido);
+					return cliente1;
+				});
+			});
 
-	private <R,T> Map<R, T> limiteFiltro(Map<R, T> mapa, int limite) {
-		Map<R, T> filtrados = new LinkedHashMap<>();
-
-		int index = 0;
-		for (Map.Entry<R, T> elemento : mapa.entrySet()) {
-			if (++index > limite) break;
-			filtrados.put(elemento.getKey(), elemento.getValue());
-		}
-		return filtrados;
-	}
-
-	private List<Pedido> ordenar(List<Pedido> lista, Comparator<Pedido> comparator) {
-    	List<Pedido> pedido = new ArrayList<>(lista);
-    	pedido.sort(comparator);
-    	return pedido;
+		return tops.entrySet().stream().limit(2).collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> x, LinkedHashMap::new));
 	}
 }
