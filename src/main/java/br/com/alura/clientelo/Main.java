@@ -84,10 +84,10 @@ public class Main {
         OrdenacaoPedido<Pedido> ordenacaoPedido = new OrdenacaoPedidoImpl();
         
         RelatorioHelper<Pedido> relatorio = new RelatorioHelper<>(ordenacaoPedido);
-//        relatorio.show(new RelatorioProdutosVendidos(todosPedidos));
-//        relatorio.show(new RelatorioVendasCategoria(todosPedidos));
-//        relatorio.show(new RelatorioProdutoesCarosCategoria(todosPedidos));
-//        relatorio.show(new RelatorioQuantidadePorCliente(todosPedidos));
+        relatorio.show(new RelatorioProdutosVendidos(todosPedidos));
+        relatorio.show(new RelatorioVendasCategoria(todosPedidos));
+        relatorio.show(new RelatorioProdutoesCarosCategoria(todosPedidos));
+        relatorio.show(new RelatorioQuantidadePorCliente(todosPedidos));
         relatorio.show(new RelatorioClientesLucrativos(todosPedidos));
     }
 }
