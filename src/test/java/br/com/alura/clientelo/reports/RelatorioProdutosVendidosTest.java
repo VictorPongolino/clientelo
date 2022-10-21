@@ -2,19 +2,14 @@ package br.com.alura.clientelo.reports;
 
 import br.com.alura.clientelo.Pedido;
 import br.com.alura.clientelo.ProcessadorDeCsv;
-import br.com.alura.clientelo.reports.logic.OrdenacaoPedido;
 import br.com.alura.clientelo.reports.logic.OrdenacaoPedidoImpl;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RelatorioProdutosVendidosTest {
 

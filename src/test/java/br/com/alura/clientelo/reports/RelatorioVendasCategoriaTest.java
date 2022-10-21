@@ -4,13 +4,13 @@ import br.com.alura.clientelo.Pedido;
 import br.com.alura.clientelo.ProcessadorDeCsv;
 import br.com.alura.clientelo.reports.logic.OrdenacaoPedidoImpl;
 import br.com.alura.clientelo.reports.logic.QuantidadeCategoria;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RelatorioVendasCategoriaTest {
 
