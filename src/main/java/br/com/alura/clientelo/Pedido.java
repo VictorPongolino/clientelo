@@ -5,14 +5,14 @@ import java.time.LocalDate;
 
 public class Pedido {
 
-    private String categoria;
-    private String produto;
-    private String cliente;
+    private final String categoria;
+    private final String produto;
+    private final String cliente;
 
-    private BigDecimal preco;
-    private int quantidade;
+    private final BigDecimal preco;
+    private final int quantidade;
 
-    private LocalDate data;
+    private final LocalDate data;
 
     public Pedido(String categoria, String produto, String cliente, BigDecimal preco, int quantidade, LocalDate data) {
         this.categoria = categoria;
@@ -21,6 +21,20 @@ public class Pedido {
         this.preco = preco;
         this.quantidade = quantidade;
         this.data = data;
+    }
+
+
+    public boolean isMaisBaratoQue(Pedido pedido) {
+        return this.getValorTotal().compareTo(pedido.getValorTotal()) < 0;
+    }
+
+    public boolean isMaisCaroQue(Pedido pedido) {
+        return this.getValorTotal().compareTo(pedido.getValorTotal()) > 0;
+    }
+
+    public BigDecimal getValorTotal() {
+        // TODO: Investigar do Scaling em casos de multiplicação.
+        return this.preco.multiply(new BigDecimal(quantidade));
     }
 
     public String getCategoria() {
