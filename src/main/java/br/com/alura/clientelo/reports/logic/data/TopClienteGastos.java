@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.reports.logic;
+package br.com.alura.clientelo.reports.logic.data;
 
 import java.math.BigDecimal;
 

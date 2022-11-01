@@ -2,7 +2,7 @@ package br.com.alura.clientelo.reports;
 
 import br.com.alura.clientelo.Pedido;
 import br.com.alura.clientelo.ProcessadorDeCsv;
-import br.com.alura.clientelo.reports.logic.OrdenacaoPedidoImpl;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

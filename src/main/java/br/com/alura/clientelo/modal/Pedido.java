@@ -1,4 +1,4 @@
-package br.com.alura.clientelo;
+package br.com.alura.clientelo.modal;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

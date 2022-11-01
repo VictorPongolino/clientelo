@@ -7,11 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import br.com.alura.clientelo.Pedido;
-import br.com.alura.clientelo.reports.logic.OrdenacaoPedidoImpl;
 
 class RelatorioProdutoesCarosCategoriaTest {
 
