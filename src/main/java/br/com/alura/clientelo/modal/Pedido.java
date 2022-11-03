@@ -1,18 +1,23 @@
 package br.com.alura.clientelo.modal;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Pedido {
 
-    private final String categoria;
-    private final String produto;
-    private final String cliente;
+    private String categoria;
+    private String produto;
+    private String cliente;
 
-    private final BigDecimal preco;
-    private final int quantidade;
+    private BigDecimal preco;
+    private int quantidade;
 
-    private final LocalDate data;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate data;
+
+    public Pedido() {}
 
     public Pedido(String categoria, String produto, String cliente, BigDecimal preco, int quantidade, LocalDate data) {
         this.categoria = categoria;
