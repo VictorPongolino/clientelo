@@ -24,7 +24,7 @@ class RelatorioProdutoesCarosCategoriaTest {
 
         assertNotNull(primeiroPedido);
         assertEquals("AUTOMOTIVA", primeiroPedido.getCategoria());
-        assertEquals("Jogo de pneus", primeiroPedido.getProduto());
+        assertEquals("Jogo de pneus", primeiroPedido.getProdutos());
         assertEquals(new BigDecimal("1276.79"), primeiroPedido.getPreco());
     }
 

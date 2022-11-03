@@ -34,7 +34,7 @@ public class RelatorioProdutoesCarosCategoria extends OperacaoPedido<Pedido> imp
 		getProdutoCaroPorCategoria().entrySet().forEach(categoriaPorPedido -> {
 			Pedido pedido = categoriaPorPedido.getValue();
 			System.out.printf("CATEGORIA: %s\nPRODUTO: %s\nPREÇO: R$ %s\n\n",
-					categoriaPorPedido.getKey(), pedido.getProduto(), DinheiroUtils.formatarDinheiroBrasileiro(pedido.getPreco()));
+					categoriaPorPedido.getKey(), pedido.getProdutos(), DinheiroUtils.formatarDinheiroBrasileiro(pedido.getPreco()));
 		});
 
 	}

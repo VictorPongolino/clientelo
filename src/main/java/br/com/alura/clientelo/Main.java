@@ -38,8 +38,8 @@ public class Main {
 
         Pedido pedidoBarato = relatorioSintetico.getPedidoMaisBarato(todosPedidos).get();
         Pedido pedidoCaro = relatorioSintetico.getPedidoMaisCaro(todosPedidos).get();
-        System.out.printf("PEDIDO MAIS BARATO: R$ %s (%s)\n", DinheiroUtils.formatarDinheiroBrasileiro(pedidoBarato.getPreco()), pedidoBarato.getProduto());
-        System.out.printf("PEDIDO MAIS CARO: R$ %s (%s)\n", DinheiroUtils.formatarDinheiroBrasileiro(pedidoCaro.getPreco()), pedidoCaro.getProduto());
+        System.out.printf("PEDIDO MAIS BARATO: R$ %s (%s)\n", DinheiroUtils.formatarDinheiroBrasileiro(pedidoBarato.getPreco()), pedidoBarato.getProdutos());
+        System.out.printf("PEDIDO MAIS CARO: R$ %s (%s)\n", DinheiroUtils.formatarDinheiroBrasileiro(pedidoCaro.getPreco()), pedidoCaro.getProdutos());
 
         RelatorioHelper.mostrar(new RelatorioVendasCategoria(todosPedidos));
         RelatorioHelper.mostrar(new RelatorioProdutosVendidos(todosPedidos));

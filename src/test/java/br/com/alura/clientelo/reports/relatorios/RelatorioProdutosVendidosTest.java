@@ -20,9 +20,9 @@ public class RelatorioProdutosVendidosTest {
         Pedido p2 = pedidos.get(1);
         Pedido p3 = pedidos.get(2);
 
-        assertTrue(p1.getProduto().equals("iPhone 13 Pro") && p1.getQuantidade() == 6 && p1.getCategoria().equals("CELULARES"));
-        assertTrue(p2.getProduto().equals("Galaxy S22 Ultra") && p2.getQuantidade() == 5 && p2.getCategoria().equals("CELULARES"));
-        assertTrue(p3.getProduto().equals("Galaxy Tab S8") && p3.getQuantidade() == 4 && p3.getCategoria().equals("INFORMÁTICA"));
+        assertTrue(p1.getProdutos().equals("iPhone 13 Pro") && p1.getQuantidade() == 6 && p1.getCategoria().equals("CELULARES"));
+        assertTrue(p2.getProdutos().equals("Galaxy S22 Ultra") && p2.getQuantidade() == 5 && p2.getCategoria().equals("CELULARES"));
+        assertTrue(p3.getProdutos().equals("Galaxy Tab S8") && p3.getQuantidade() == 4 && p3.getCategoria().equals("INFORMÁTICA"));
     }
 
     @Test

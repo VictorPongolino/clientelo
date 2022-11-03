@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.com.alura.clientelo.modal.Cliente;
 import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.reports.RelatorioMostruario;
 import br.com.alura.clientelo.reports.logic.data.TopClienteGastos;
@@ -22,11 +23,11 @@ public class RelatorioClientesLucrativos extends OperacaoPedido<Pedido> implemen
     private LinkedHashMap<String, TopClienteGastos> getClientesLucrativos() {
         Map<String, TopClienteGastos> tops = new LinkedHashMap<>();
         getPedidos().stream()
-                .sorted(comparing(Pedido::getCliente))
+                .sorted(comparing(pedido -> pedido.getCliente().getNome()))
                 .sorted((o1, o2) -> o2.getPreco().multiply(new BigDecimal(o2.getQuantidade())).compareTo(o1.getPreco().multiply(new BigDecimal(o1.getQuantidade()))))
                 .forEach(pedido -> {
                     BigDecimal totalPedido = pedido.getPreco().multiply(new BigDecimal(pedido.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN);
-                    tops.merge(pedido.getCliente(), new TopClienteGastos(1, totalPedido), (cliente1, cliente2) -> {
+                    tops.merge(pedido.getCliente().getNome(), new TopClienteGastos(1, totalPedido), (cliente1, cliente2) -> {
                         cliente1.contabilizar(1, totalPedido);
                         return cliente1;
                     });

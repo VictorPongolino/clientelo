@@ -24,7 +24,7 @@ public class RelatorioProdutosVendidos extends OperacaoPedido<Pedido> implements
 	@Override
 	public void accept() {
 //		printTitle("Relatório de produtos mais vendidos");
-		getProdutosMaisVendidos(3).forEach(pedido -> System.out.printf("Nome: %s\nQuantidade: %d\n", pedido.getProduto(), pedido.getQuantidade()));
+		getProdutosMaisVendidos(3).forEach(pedido -> System.out.printf("Nome: %s\nQuantidade: %d\n", pedido.getProdutos(), pedido.getQuantidade()));
 	}
 
 }
