@@ -1,11 +1,9 @@
-package br.com.alura.clientelo.reports;
+package br.com.alura.clientelo.reports.relatorios;
 
-import br.com.alura.clientelo.Pedido;
-import br.com.alura.clientelo.ProcessadorDeCsv;
-
+import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.reports.PedidoFake;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RelatorioProdutosVendidosTest {
 
-    private OrdenacaoPedidoImpl ordenacaoPedidoImpl = new OrdenacaoPedidoImpl();
+    private RelatorioProdutosVendidos subject = new RelatorioProdutosVendidos(PedidoFake.getPedidos());
 
     @Test
     public void retornarCategoria() {
-        List<Pedido> pedidos = ordenacaoPedidoImpl.ordenarQuantidade(obterRelatorios());
+        List<Pedido> pedidos = subject.getProdutosMaisVendidos(3);
         Pedido p1 = pedidos.get(0);
         Pedido p2 = pedidos.get(1);
         Pedido p3 = pedidos.get(2);
@@ -29,11 +27,8 @@ public class RelatorioProdutosVendidosTest {
 
     @Test
     public void retornarCategoriaVazia() {
-        List<Pedido> pedidos = ordenacaoPedidoImpl.ordenarQuantidade(Collections.emptyList());
+        RelatorioProdutosVendidos subject = new RelatorioProdutosVendidos(Collections.emptyList());
+        List<Pedido> pedidos = subject.getProdutosMaisVendidos(3);
         assertTrue(pedidos.isEmpty());
-    }
-
-    private List<Pedido> obterRelatorios() {
-        return Arrays.asList(ProcessadorDeCsv.processaArquivo("pedidos.csv"));
     }
 }

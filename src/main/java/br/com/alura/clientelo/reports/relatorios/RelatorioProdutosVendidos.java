@@ -3,7 +3,10 @@ package br.com.alura.clientelo.reports.relatorios;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 
+import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.reports.RelatorioMostruario;
+
+import java.util.List;
 
 public class RelatorioProdutosVendidos extends OperacaoPedido<Pedido> implements RelatorioMostruario {
 	
@@ -11,7 +14,7 @@ public class RelatorioProdutosVendidos extends OperacaoPedido<Pedido> implements
 		super(pedidos);
 	}
 
-	private List<Pedido> getProdutosMaisVendidos(int limit) {
+	public List<Pedido> getProdutosMaisVendidos(int limit) {
 		return getPedidos().stream()
 				.sorted(comparing(Pedido::getQuantidade).reversed())
 				.limit(limit)

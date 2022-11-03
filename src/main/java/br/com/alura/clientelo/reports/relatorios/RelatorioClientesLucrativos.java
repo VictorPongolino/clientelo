@@ -6,8 +6,10 @@ import static java.util.stream.Collectors.toMap;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
+import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.reports.RelatorioMostruario;
 import br.com.alura.clientelo.reports.logic.data.TopClienteGastos;
 import br.com.alura.clientelo.reports.utils.DinheiroUtils;
@@ -37,7 +39,7 @@ public class RelatorioClientesLucrativos extends OperacaoPedido<Pedido> implemen
     public void accept() {
 //        printTitle("Relatório de clientes mais lucrativos");
         getClientesLucrativos().entrySet().forEach(pedidos -> {
-            System.out.printf("NOME: %s\nNº DE PEDIDOS: %d\nMONTANTE GASTO: %s\n\n", pedidos.getKey(), pedidos.getValue().getQuantidade(), DinheiroUtils.formatarDinheiroBrasileiro(pedidos.getValue().getTotalGasto()));
+            System.out.printf("NOME: %s\nNº DE PEDIDOS: %d\nMONTANTE GASTO: R$ %s\n\n", pedidos.getKey(), pedidos.getValue().getQuantidade(), DinheiroUtils.formatarDinheiroBrasileiro(pedidos.getValue().getTotalGasto()));
         });
     }
 }

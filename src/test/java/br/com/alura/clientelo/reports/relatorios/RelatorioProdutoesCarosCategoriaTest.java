@@ -1,20 +1,24 @@
-package br.com.alura.clientelo.reports;
+package br.com.alura.clientelo.reports.relatorios;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.reports.PedidoFake;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 class RelatorioProdutoesCarosCategoriaTest {
 
-    private OrdenacaoPedidoImpl ordenacaoPedido = new OrdenacaoPedidoImpl();
+    private RelatorioProdutoesCarosCategoria subject = new RelatorioProdutoesCarosCategoria(PedidoFake.getPedidos());
 
     @Test
     public void isPrimeiroAutomotiva() {
-        Map<String, Pedido> pedidos = ordenacaoPedido.ordenarPorCategoriaMaiorPreco(PedidoFake.getPedidos());
+        Map<String, Pedido> pedidos = subject.getProdutoCaroPorCategoria();
 
         Pedido primeiroPedido = pedidos.values().stream().findFirst().orElse(null);
 
@@ -28,12 +32,12 @@ class RelatorioProdutoesCarosCategoriaTest {
     public void testarComUnicoPedido() {
         List<Pedido> pedidosFake = new ArrayList<>();
         pedidosFake.add(new Pedido("CATEGORIA", "PRODUTO", "CLIENTE", new BigDecimal("1"), 1, LocalDate.of(2022, 1, 1)));
-        assertEquals(1, ordenacaoPedido.ordenarPorCategoriaMaiorPreco(pedidosFake).size());
+        assertEquals(1, subject.getProdutoCaroPorCategoria().size());
     }
 
     @Test
     public void testarSemPedidos() {
         List<Pedido> pedidosFake = new ArrayList<>();
-        assertTrue(ordenacaoPedido.ordenarPorCategoriaMaiorPreco(pedidosFake).isEmpty());
+        assertTrue(subject.getProdutoCaroPorCategoria().isEmpty());
     }
 }

@@ -1,5 +1,7 @@
 package br.com.alura.clientelo;
 
+import br.com.alura.clientelo.modal.Pedido;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;

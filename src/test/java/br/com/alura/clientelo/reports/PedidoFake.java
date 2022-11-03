@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import br.com.alura.clientelo.Pedido;
+import br.com.alura.clientelo.modal.Pedido;
 
 public class PedidoFake {
 

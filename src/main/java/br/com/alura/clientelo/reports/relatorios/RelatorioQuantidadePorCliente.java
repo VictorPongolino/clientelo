@@ -5,9 +5,11 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingInt;
 import static java.util.stream.Collectors.toMap;
 
+import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.reports.RelatorioMostruario;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RelatorioQuantidadePorCliente extends OperacaoPedido<Pedido> implements RelatorioMostruario {
@@ -15,7 +17,7 @@ public class RelatorioQuantidadePorCliente extends OperacaoPedido<Pedido> implem
         super(pedidos);
     }
 
-    private LinkedHashMap<String, Integer> getOrdemPorClientes() {
+    public LinkedHashMap<String, Integer> getOrdemPorClientes() {
         LinkedHashMap<String, Integer> ordemPorClientes = getPedidos().stream()
                 .sorted(comparing(Pedido::getCliente))
                 .collect(groupingBy(Pedido::getCliente, LinkedHashMap::new, summingInt(x -> 1)));
