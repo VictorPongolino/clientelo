@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -21,6 +23,7 @@ public class ItemPedido {
     private BigDecimal precoUnitario;
     private Integer quantidade;
     @ManyToOne(optional = false)
+    @JsonBackReference
     private Pedido pedido;
     @ManyToOne(optional = false)
     private Produto produto;
@@ -28,7 +31,7 @@ public class ItemPedido {
     @Enumerated(EnumType.STRING)
     private TipoDesconto tipoDesconto;
 
-    private ItemPedido() {}
+    ItemPedido() {}
 
     public ItemPedido(Long id, BigDecimal precoUnitario, Integer quantidade, Pedido pedido, Produto produto, BigDecimal desconto, TipoDesconto tipoDesconto) {
         this.id = id;

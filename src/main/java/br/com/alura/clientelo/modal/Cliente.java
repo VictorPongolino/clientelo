@@ -20,9 +20,8 @@ public class Cliente {
     private String cidade;
     private String estado;
 
-    private Cliente() {}
-    public Cliente(Long id, String nome, String cpf, String telefone, String rua, String numero, String complemento, String bairro, String cidade, String estado) {
-        this.id = id;
+    Cliente() {}
+    public Cliente(String nome, String cpf, String telefone, String rua, String numero, String complemento, String bairro, String cidade, String estado) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -34,6 +33,9 @@ public class Cliente {
         this.estado = estado;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
     public Long getId() {
         return id;
     }

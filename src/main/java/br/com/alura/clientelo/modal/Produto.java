@@ -19,10 +19,9 @@ public class Produto {
     @ManyToOne(optional = false)
     private Categoria categoria;
 
-    private Produto() {}
+    Produto() {}
 
-    public Produto(Long id, String nome, String descricao, Integer qtdEstoque, Categoria categoria) {
-        this.id = id;
+    public Produto(String nome, String descricao, Integer qtdEstoque, Categoria categoria) {
         this.nome = nome;
         this.descricao = descricao;
         this.qtdEstoque = qtdEstoque;
