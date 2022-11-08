@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.leitor;
 
-import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.modal.PedidoCSVDTO;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class LeitorArquivos {
 
-    public static Pedido[] from(URL url, ProcessadorArquivo processador) throws IOException, URISyntaxException {
-        return processador.lerArquivo(url).toArray(new Pedido[0]);
+    public static PedidoCSVDTO[] from(URL url, ProcessadorArquivo processador) throws IOException, URISyntaxException {
+        return processador.lerArquivo(url).toArray(new PedidoCSVDTO[0]);
     }
 }

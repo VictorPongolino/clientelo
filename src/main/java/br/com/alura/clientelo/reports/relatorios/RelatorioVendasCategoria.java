@@ -20,8 +20,8 @@ public class RelatorioVendasCategoria extends OperacaoPedido<Pedido> implements 
 
 	public Map<String, QuantidadeCategoria> ordenarPorCategoria() {
 		 return getPedidos().stream()
-				.sorted(comparing(Pedido::getCategoria))
-				.collect(toMap(Pedido::getCategoria, valor -> new QuantidadeCategoria(valor.getQuantidade(), valor.getPreco().multiply(new BigDecimal(valor.getQuantidade()))), (k, v) -> {
+				.sorted(comparing(pedido -> pedido.getCategoria().getNome()))
+				.collect(toMap(pedido -> pedido.getCategoria().getNome(), valor -> new QuantidadeCategoria(valor.getQuantidade(), valor.getPreco().multiply(new BigDecimal(valor.getQuantidade()))), (k, v) -> {
 					k.atualizar(v.getQuantidade(), v.getMontante());
 					return k;
 				}));

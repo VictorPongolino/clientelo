@@ -19,8 +19,8 @@ public class RelatorioQuantidadePorCliente extends OperacaoPedido<Pedido> implem
 
     public LinkedHashMap<String, Integer> getOrdemPorClientes() {
         LinkedHashMap<String, Integer> ordemPorClientes = getPedidos().stream()
-                .sorted(comparing(Pedido::getCliente))
-                .collect(groupingBy(Pedido::getCliente, LinkedHashMap::new, summingInt(x -> 1)));
+                .sorted(comparing(pedidos -> pedidos.getCliente().getNome()))
+                .collect(groupingBy(pedidos -> pedidos.getCliente().getNome(), LinkedHashMap::new, summingInt(x -> 1)));
 
         return ordemPorClientes.entrySet()
                 .stream()

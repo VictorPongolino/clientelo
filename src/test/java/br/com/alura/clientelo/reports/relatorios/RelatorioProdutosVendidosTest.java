@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.reports.relatorios;
 
-import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.modal.PedidoCSVDTO;
 import br.com.alura.clientelo.reports.PedidoFake;
 import org.junit.jupiter.api.Test;
 
@@ -15,10 +15,10 @@ public class RelatorioProdutosVendidosTest {
 
     @Test
     public void retornarCategoria() {
-        List<Pedido> pedidos = subject.getProdutosMaisVendidos(3);
-        Pedido p1 = pedidos.get(0);
-        Pedido p2 = pedidos.get(1);
-        Pedido p3 = pedidos.get(2);
+        List<PedidoCSVDTO> pedidos = subject.getProdutosMaisVendidos(3);
+        PedidoCSVDTO p1 = pedidos.get(0);
+        PedidoCSVDTO p2 = pedidos.get(1);
+        PedidoCSVDTO p3 = pedidos.get(2);
 
         assertTrue(p1.getProdutos().equals("iPhone 13 Pro") && p1.getQuantidade() == 6 && p1.getCategoria().equals("CELULARES"));
         assertTrue(p2.getProdutos().equals("Galaxy S22 Ultra") && p2.getQuantidade() == 5 && p2.getCategoria().equals("CELULARES"));
@@ -28,7 +28,7 @@ public class RelatorioProdutosVendidosTest {
     @Test
     public void retornarCategoriaVazia() {
         RelatorioProdutosVendidos subject = new RelatorioProdutosVendidos(Collections.emptyList());
-        List<Pedido> pedidos = subject.getProdutosMaisVendidos(3);
+        List<PedidoCSVDTO> pedidos = subject.getProdutosMaisVendidos(3);
         assertTrue(pedidos.isEmpty());
     }
 }

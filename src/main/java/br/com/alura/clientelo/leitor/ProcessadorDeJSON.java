@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.leitor;
 
-import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.modal.PedidoCSVDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ProcessadorDeJSON implements ProcessadorArquivo {
     @Override
-    public List<Pedido> lerArquivo(URL url) throws IOException {
+    public List<PedidoCSVDTO> lerArquivo(URL url) throws IOException {
         ObjectMapper objectMapper = JsonMapper.builder()
                 .addModule(new JavaTimeModule())
                 .build();

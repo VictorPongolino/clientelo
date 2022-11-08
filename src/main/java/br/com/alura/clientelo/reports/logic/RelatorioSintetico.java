@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.reports.logic;
 
-import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.modal.PedidoCSVDTO;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
@@ -10,27 +10,27 @@ import java.util.Optional;
 public class RelatorioSintetico {
 
 
-    public int getTotalPedidosRealizados(List<Pedido> pedidos) {
+    public int getTotalPedidosRealizados(List<PedidoCSVDTO> pedidos) {
         return pedidos.size();
     }
 
-    public int getTotalProdutosVendidos(List<Pedido> pedidos) {
-        return pedidos.stream().mapToInt(Pedido::getQuantidade).reduce(0, Integer::sum);
+    public int getTotalProdutosVendidos(List<PedidoCSVDTO> pedidos) {
+        return pedidos.stream().mapToInt(PedidoCSVDTO::getQuantidade).reduce(0, Integer::sum);
     }
 
-    public long getTotalCategorias(List<Pedido> pedidos) {
-        return pedidos.stream().map(Pedido::getCategoria).distinct().count();
+    public long getTotalCategorias(List<PedidoCSVDTO> pedidos) {
+        return pedidos.stream().map(PedidoCSVDTO::getCategoria).distinct().count();
     }
 
-    public BigDecimal getMontanteVendas(List<Pedido> pedidos) {
-        return pedidos.stream().map(Pedido::getValorTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+    public BigDecimal getMontanteVendas(List<PedidoCSVDTO> pedidos) {
+        return pedidos.stream().map(PedidoCSVDTO::getValorTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public Optional<Pedido> getPedidoMaisBarato(List<Pedido> pedidos) {
-        return pedidos.stream().min(Comparator.comparing(Pedido::getValorTotal));
+    public Optional<PedidoCSVDTO> getPedidoMaisBarato(List<PedidoCSVDTO> pedidos) {
+        return pedidos.stream().min(Comparator.comparing(PedidoCSVDTO::getValorTotal));
     }
 
-    public Optional<Pedido> getPedidoMaisCaro(List<Pedido> pedidos) {
-        return pedidos.stream().max(Comparator.comparing(Pedido::getValorTotal));
+    public Optional<PedidoCSVDTO> getPedidoMaisCaro(List<PedidoCSVDTO> pedidos) {
+        return pedidos.stream().max(Comparator.comparing(PedidoCSVDTO::getValorTotal));
     }
 }

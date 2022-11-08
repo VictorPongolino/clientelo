@@ -20,8 +20,8 @@ public class RelatorioProdutoesCarosCategoria extends OperacaoPedido<Pedido> imp
 
 	LinkedHashMap<String, Pedido> getProdutoCaroPorCategoria() {
 		return getPedidos().stream()
-				.sorted(comparing(Pedido::getCategoria))
-				.collect(toMap(Pedido::getCategoria, Function.identity(), (k, v) -> {
+				.sorted(comparing(pedido -> pedido.getCategoria().getNome()))
+				.collect(toMap(pedido -> pedido.getCategoria().getNome(), Function.identity(), (k, v) -> {
 					BigDecimal preco1 = k.getPreco().multiply(new BigDecimal(k.getQuantidade()));
 					BigDecimal preco2 = v.getPreco().multiply(new BigDecimal(v.getQuantidade()));
 					return preco1.compareTo(preco2) > 0 ? k : v;

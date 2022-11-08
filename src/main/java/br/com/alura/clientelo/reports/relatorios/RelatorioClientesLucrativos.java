@@ -9,7 +9,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.alura.clientelo.modal.Cliente;
 import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.reports.RelatorioMostruario;
 import br.com.alura.clientelo.reports.logic.data.TopClienteGastos;
