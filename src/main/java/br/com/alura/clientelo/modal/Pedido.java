@@ -1,51 +1,42 @@
 package br.com.alura.clientelo.modal;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvDate;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
 public class Pedido {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @CsvBindByName(column = "CATEGORIA")
+    private String categoria;
+    @CsvBindByName(column = "PRODUTO")
+    private String produto;
+    @CsvBindByName(column = "CLIENTE")
+    private String cliente;
 
-    @ManyToOne(optional = false)
-    private Categoria categoria;
-
-    @OneToMany
-    private List<ItemPedido> itempedidos;
-
-    @ManyToOne(optional = false)
-    private Cliente cliente;
-
+    @CsvBindByName(column = "PRECO")
     private BigDecimal preco;
+    @CsvBindByName(column = "QUANTIDADE")
     private int quantidade;
 
+    @CsvDate(value = "dd/MM/yyyy")
+    @CsvBindByName(column = "DATA")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
-    private Pedido() {}
+    public Pedido() {}
 
-    public Pedido(Long id, Categoria categoria, List<ItemPedido> itempedidos, Cliente cliente, BigDecimal preco, int quantidade, LocalDate data) {
-        this.id = id;
+    public Pedido(String categoria, String produto, String cliente, BigDecimal preco, int quantidade, LocalDate data) {
         this.categoria = categoria;
-        this.itempedidos = itempedidos;
+        this.produto = produto;
         this.cliente = cliente;
         this.preco = preco;
         this.quantidade = quantidade;
         this.data = data;
     }
+
 
     public boolean isMaisBaratoQue(Pedido pedido) {
         return this.getValorTotal().compareTo(pedido.getValorTotal()) < 0;
@@ -56,61 +47,39 @@ public class Pedido {
     }
 
     public BigDecimal getValorTotal() {
+        // TODO: Investigar do Scaling em casos de multiplicação.
         return this.preco.multiply(new BigDecimal(quantidade));
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Categoria getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public String getProduto() {
+        return produto;
     }
 
-    public Cliente getCliente() {
+    public String getCliente() {
         return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
-    }
-
     public int getQuantidade() {
         return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
     }
 
     public LocalDate getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
     @Override
     public String toString() {
         return "Pedido{" +
                 "categoria='" + categoria + '\'' +
+                ", produto='" + produto + '\'' +
                 ", cliente='" + cliente + '\'' +
                 ", preco=" + preco +
                 ", quantidade=" + quantidade +
