@@ -1,7 +1,7 @@
 package br.com.alura.clientelo;
 
 import br.com.alura.clientelo.leitor.LeitorArquivos;
-import br.com.alura.clientelo.leitor.ProcessadorDeJSON;
+import br.com.alura.clientelo.leitor.ProcessadorDeCsv;
 import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.reports.logic.RelatorioSintetico;
 import br.com.alura.clientelo.reports.utils.DinheiroUtils;
@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -24,9 +25,9 @@ public class Main {
 
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
-    public static void main(String[] args) throws IOException {
-        URL url = ClassLoader.getSystemResource("pedidos.json");
-        Pedido[] pedidos = LeitorArquivos.from(url, new ProcessadorDeJSON());
+    public static void main(String[] args) throws IOException, URISyntaxException {
+        URL url = ClassLoader.getSystemResource("pedidos.csv");
+        Pedido[] pedidos = LeitorArquivos.from(url, new ProcessadorDeCsv());
 
         List<Pedido> todosPedidos = Arrays.asList(pedidos);
 

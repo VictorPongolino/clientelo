@@ -1,19 +1,28 @@
 package br.com.alura.clientelo.modal;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvDate;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Pedido {
 
+    @CsvBindByName(column = "CATEGORIA")
     private String categoria;
+    @CsvBindByName(column = "PRODUTO")
     private String produto;
+    @CsvBindByName(column = "CLIENTE")
     private String cliente;
 
+    @CsvBindByName(column = "PRECO")
     private BigDecimal preco;
+    @CsvBindByName(column = "QUANTIDADE")
     private int quantidade;
 
+    @CsvDate(value = "dd/MM/yyyy")
+    @CsvBindByName(column = "DATA")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
