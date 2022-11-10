@@ -8,8 +8,6 @@ import br.com.alura.clientelo.persistence.DBProperties;
 import br.com.alura.clientelo.persistence.PersistenceFactory;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 public class CategoriaDAO {
@@ -17,7 +15,6 @@ public class CategoriaDAO {
     private EntityManager persistenceFactory;
 
     public CategoriaDAO(PersistenceFactory persistenceFactory) {
-
         this.persistenceFactory = persistenceFactory.getInstance(DBProperties.CLIENT_ELO);
     }
 

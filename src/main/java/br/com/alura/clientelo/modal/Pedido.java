@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -73,6 +72,14 @@ public class Pedido {
 
     public Cliente getCliente() {
         return cliente;
+    }
+
+    public List<ItemPedido> getItempedidos() {
+        return itempedidos;
+    }
+
+    public void setItempedidos(List<ItemPedido> itempedidos) {
+        this.itempedidos = itempedidos;
     }
 
     public void setCliente(Cliente cliente) {
