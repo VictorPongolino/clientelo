@@ -18,6 +18,5 @@ public class Main {
         URL url = ClassLoader.getSystemResource("pedidos.csv");
         PedidoCSVDTO[] pedidos = LeitorArquivos.from(url, new ProcessadorDeCsv());
 
-        // TODO - SEMANA 6
     }
 }

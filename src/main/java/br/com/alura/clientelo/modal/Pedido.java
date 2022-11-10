@@ -26,6 +26,13 @@ public class Pedido {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
+    private BigDecimal descontoTotal;
+    private TipoDesconto tipoDesconto;
+
+    public enum TipoDesconto {
+        FIDELIDADE, NENHUM
+    }
+
     Pedido() {}
 
     public Pedido(Categoria categoria, List<ItemPedido> itempedidos, Cliente cliente, LocalDate data) {
@@ -35,17 +42,14 @@ public class Pedido {
         this.data = data;
     }
 
-//    public boolean isMaisBaratoQue(Pedido pedido) {
-//        return this.getValorTotal().compareTo(pedido.getValorTotal()) < 0;
-//    }
+    public Long getId() {
+        return id;
+    }
 
-//    public boolean isMaisCaroQue(Pedido pedido) {
-//        return this.getValorTotal().compareTo(pedido.getValorTotal()) > 0;
-//    }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//    public BigDecimal getValorTotal() {
-//        return this.preco.multiply(new BigDecimal(quantidade));
-//    }
 
     public Categoria getCategoria() {
         return categoria;
@@ -77,6 +81,22 @@ public class Pedido {
 
     public void setData(LocalDate data) {
         this.data = data;
+    }
+
+    public BigDecimal getDescontoTotal() {
+        return descontoTotal;
+    }
+
+    public void setDescontoTotal(BigDecimal descontoTotal) {
+        this.descontoTotal = descontoTotal;
+    }
+
+    public TipoDesconto getTipoDesconto() {
+        return tipoDesconto;
+    }
+
+    public void setTipoDesconto(TipoDesconto tipoDesconto) {
+        this.tipoDesconto = tipoDesconto;
     }
 
     @Override
