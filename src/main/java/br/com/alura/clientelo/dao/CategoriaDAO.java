@@ -28,4 +28,9 @@ public class CategoriaDAO {
         TypedQuery<Categoria> query = persistenceFactory.createQuery("SELECT c FROM " + Categoria.class.getName() + " c", Categoria.class);
         return query.getResultList();
     }
+
+    public Optional<Categoria> listarPorNome(String nome) {
+        // TODO
+        return null;
+    }
 }

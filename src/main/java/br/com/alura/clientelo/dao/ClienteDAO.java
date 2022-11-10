@@ -46,4 +46,9 @@ public class ClienteDAO {
         TypedQuery<Cliente> query = persistenceFactory.createQuery("SELECT c FROM " + Cliente.class.getName() + " c WHERE c.qtdEstoque = 0", Cliente.class);
         return query.getResultList();
     }
+
+    public Optional<Cliente> buscarPorNome(String cliente) {
+        // TODO
+        return null;
+    }
 }

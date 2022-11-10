@@ -17,50 +17,35 @@ public class Pedido {
     @ManyToOne(optional = false)
     private Categoria categoria;
 
-    @OneToMany
-    @JoinColumn(columnDefinition = "pedido_id")
+    @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itempedidos;
 
     @ManyToOne(optional = false)
     private Cliente cliente;
-
-    private BigDecimal preco;
-    private int quantidade;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
     Pedido() {}
 
-    public Pedido(Long id, Categoria categoria, List<ItemPedido> itempedidos, Cliente cliente, BigDecimal preco, int quantidade, LocalDate data) {
-        this.id = id;
+    public Pedido(Categoria categoria, List<ItemPedido> itempedidos, Cliente cliente, LocalDate data) {
         this.categoria = categoria;
         this.itempedidos = itempedidos;
         this.cliente = cliente;
-        this.preco = preco;
-        this.quantidade = quantidade;
         this.data = data;
     }
 
-    public boolean isMaisBaratoQue(Pedido pedido) {
-        return this.getValorTotal().compareTo(pedido.getValorTotal()) < 0;
-    }
+//    public boolean isMaisBaratoQue(Pedido pedido) {
+//        return this.getValorTotal().compareTo(pedido.getValorTotal()) < 0;
+//    }
 
-    public boolean isMaisCaroQue(Pedido pedido) {
-        return this.getValorTotal().compareTo(pedido.getValorTotal()) > 0;
-    }
+//    public boolean isMaisCaroQue(Pedido pedido) {
+//        return this.getValorTotal().compareTo(pedido.getValorTotal()) > 0;
+//    }
 
-    public BigDecimal getValorTotal() {
-        return this.preco.multiply(new BigDecimal(quantidade));
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public BigDecimal getValorTotal() {
+//        return this.preco.multiply(new BigDecimal(quantidade));
+//    }
 
     public Categoria getCategoria() {
         return categoria;
@@ -86,22 +71,6 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public BigDecimal getPreco() {
-        return preco;
-    }
-
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public LocalDate getData() {
         return data;
     }
@@ -115,8 +84,6 @@ public class Pedido {
         return "Pedido{" +
                 "categoria='" + categoria + '\'' +
                 ", cliente='" + cliente + '\'' +
-                ", preco=" + preco +
-                ", quantidade=" + quantidade +
                 ", data=" + data +
                 '}';
     }

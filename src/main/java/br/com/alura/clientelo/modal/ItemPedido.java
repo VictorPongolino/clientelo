@@ -33,8 +33,7 @@ public class ItemPedido {
 
     ItemPedido() {}
 
-    public ItemPedido(Long id, BigDecimal precoUnitario, Integer quantidade, Pedido pedido, Produto produto, BigDecimal desconto, TipoDesconto tipoDesconto) {
-        this.id = id;
+    public ItemPedido(BigDecimal precoUnitario, Integer quantidade, Pedido pedido, Produto produto, BigDecimal desconto, TipoDesconto tipoDesconto) {
         this.precoUnitario = precoUnitario;
         this.quantidade = quantidade;
         this.pedido = pedido;
