@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.leitor;
 
-import br.com.alura.clientelo.modal.PedidoCSVDTO;
+import br.com.alura.clientelo.leitor.dto.PedidoCSVDTO;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
