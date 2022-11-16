@@ -24,4 +24,13 @@ public class RelatorioVendasCategoriaDTO {
     public BigDecimal getMontanteVendido() {
         return montanteVendido;
     }
+
+    @Override
+    public String toString() {
+        return "RelatorioVendasCategoriaDTO{" +
+                "categoria='" + categoria + '\'' +
+                ", quantidadeProdutosVendidos=" + quantidadeProdutosVendidos +
+                ", montanteVendido=" + montanteVendido +
+                '}';
+    }
 }

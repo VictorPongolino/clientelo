@@ -28,22 +28,30 @@ public class OperacaoPedidoDAO {
         return query.getResultList();
     }
 
-    public List<RelatorioClienteFielDTO> getClienteFiel() {
-        String jpql = "SELECT NEW " + RelatorioClienteFielDTO.class.getName() + "(c.nome, COUNT(*), SUM(i.precoUnitario * i.quantidade)) " +
+    public List<RelatorioClienteFielDTO> getClientesLucrativos() {
+        String jpql = "SELECT NEW " + RelatorioClienteFielDTO.class.getName() + "(p.cliente.nome, COUNT(*), SUM(i.precoUnitario * i.quantidade)) " +
                 "FROM " + Pedido.class.getName() + " p " +
-                "JOIN p.cliente c " +
                 "JOIN p.itempedidos i " +
-                "GROUP BY c.nome " +
-                "ORDER BY SUM(i.precoUnitario * i.quantidade) DESC, c.nome ASC";
+                "GROUP BY p.cliente.nome";
         TypedQuery<RelatorioClienteFielDTO> query = persistenceFactory.createQuery(jpql, RelatorioClienteFielDTO.class);
-        query.setMaxResults(2);
+        query.setMaxResults(3);
         return query.getResultList();
     }
 
     public List<Produto> getProdutosTOP3() {
-        String jpql = "SELECT i.produto FROM " + ItemPedido.class.getName() + " i GROUP BY i.produto ORDER BY i.produto DESC";
+        String jpql = "SELECT i.produto FROM " + ItemPedido.class.getName() + " i GROUP BY i.produto HAVING COUNT(i.produto) > 3";
         TypedQuery<Produto> query = persistenceFactory.createQuery(jpql, Produto.class);
-        query.setMaxResults(3);
+        return query.getResultList();
+    }
+
+    public List<ClienteLucrativoDTO> getClienteFiel() {
+        String jpql = "SELECT NEW " + ClienteLucrativoDTO.class.getName() + "(p.cliente.nome, COUNT(*), SUM(i.precoUnitario * i.quantidade)) " +
+                "FROM " + Pedido.class.getName() + " p " +
+                "JOIN p.itempedidos i " +
+                "GROUP BY p.cliente.nome " +
+                "ORDER BY SUM(i.precoUnitario * i.quantidade) DESC";
+        TypedQuery<ClienteLucrativoDTO> query = persistenceFactory.createQuery(jpql, ClienteLucrativoDTO.class);
+        query.setMaxResults(2);
         return query.getResultList();
     }
 
