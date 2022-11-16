@@ -10,8 +10,8 @@ import java.util.Optional;
 public class PedidoDAO {
     private EntityManager persistenceFactory;
 
-    public PedidoDAO(PersistenceFactory persistenceFactory) {
-        this.persistenceFactory = persistenceFactory.getInstance(DBProperties.CLIENT_ELO);
+    public PedidoDAO() {
+        this.persistenceFactory = PersistenceFactory.getInstance(DBProperties.CLIENT_ELO);
     }
 
     public void cadastrar(Pedido pedido){

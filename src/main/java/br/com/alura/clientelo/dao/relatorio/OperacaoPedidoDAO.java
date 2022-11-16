@@ -13,23 +13,36 @@ import java.util.List;
 public class OperacaoPedidoDAO {
     private EntityManager persistenceFactory;
 
-    public OperacaoPedidoDAO(PersistenceFactory persistenceFactory) {
-        this.persistenceFactory = persistenceFactory.getInstance(DBProperties.CLIENT_ELO);
+    public OperacaoPedidoDAO() {
+        this.persistenceFactory = PersistenceFactory.getInstance(DBProperties.CLIENT_ELO);
     }
 
     public List<RelatorioVendasCategoriaDTO> getVendasPorCategoria() {
-        TypedQuery<RelatorioVendasCategoriaDTO> query = persistenceFactory.createQuery("SELECT NEW " + RelatorioVendasCategoriaDTO.class.getName() + "(p.categoria.nome, SUM(*), SUM(p.itempedidos.precoUnitario)) FROM " + Pedido.class.getName() + " p GROUP BY p.categoria.nome", RelatorioVendasCategoriaDTO.class);
+        String jpql = "SELECT NEW " + RelatorioVendasCategoriaDTO.class.getName() + "(c.nome, SUM(i.quantidade), SUM(i.precoUnitario * i.quantidade)) " +
+                      "FROM " + Pedido.class.getName() + " p " +
+                      "JOIN p.categoria c " +
+                      "JOIN p.itempedidos i " +
+                      "GROUP BY c.nome " +
+                      "ORDER BY c.nome ASC";
+        TypedQuery<RelatorioVendasCategoriaDTO> query = persistenceFactory.createQuery(jpql, RelatorioVendasCategoriaDTO.class);
         return query.getResultList();
     }
 
     public List<RelatorioClienteFielDTO> getClienteFiel() {
-        TypedQuery<RelatorioClienteFielDTO> query = persistenceFactory.createQuery("SELECT NEW " + RelatorioClienteFielDTO.class.getName() + "(p.cliente.nome, SUM(*), SUM(p.itempedidos.precoUnitario) as total) FROM " + Pedido.class.getName() + " p GROUP BY p.cliente.nome ORDER BY total DESC", RelatorioClienteFielDTO.class);
-        query.setMaxResults(3);
+        String jpql = "SELECT NEW " + RelatorioClienteFielDTO.class.getName() + "(c.nome, COUNT(*), SUM(i.precoUnitario * i.quantidade)) " +
+                "FROM " + Pedido.class.getName() + " p " +
+                "JOIN p.cliente c " +
+                "JOIN p.itempedidos i " +
+                "GROUP BY c.nome " +
+                "ORDER BY SUM(i.precoUnitario * i.quantidade) DESC, c.nome ASC";
+        TypedQuery<RelatorioClienteFielDTO> query = persistenceFactory.createQuery(jpql, RelatorioClienteFielDTO.class);
+        query.setMaxResults(2);
         return query.getResultList();
     }
 
     public List<Produto> getProdutosTOP3() {
-        TypedQuery<Produto> query = persistenceFactory.createQuery("SELECT i.produto FROM " + ItemPedido.class.getName() + " i GROUP BY i.produto", Produto.class);
+        String jpql = "SELECT i.produto FROM " + ItemPedido.class.getName() + " i GROUP BY i.produto ORDER BY i.produto DESC";
+        TypedQuery<Produto> query = persistenceFactory.createQuery(jpql, Produto.class);
         query.setMaxResults(3);
         return query.getResultList();
     }

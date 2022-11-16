@@ -12,8 +12,8 @@ import java.util.Optional;
 public class ProdutoDAO {
     private EntityManager persistenceFactory;
 
-    public ProdutoDAO(PersistenceFactory persistenceFactory) {
-        this.persistenceFactory = persistenceFactory.getInstance(DBProperties.CLIENT_ELO);
+    public ProdutoDAO() {
+        this.persistenceFactory = PersistenceFactory.getInstance(DBProperties.CLIENT_ELO);
     }
 
     public Optional<Produto> buscarPorId(Long produtoId) {

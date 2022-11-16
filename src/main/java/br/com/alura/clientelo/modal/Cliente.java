@@ -54,4 +54,11 @@ public class Cliente {
         this.telefone = telefone;
     }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 }

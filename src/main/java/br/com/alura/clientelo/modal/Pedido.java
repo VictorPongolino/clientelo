@@ -26,7 +26,10 @@ public class Pedido {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
+    @Column(name = "desconto_total")
     private BigDecimal descontoTotal;
+    @Column(name = "tipo_desconto")
+    @Enumerated(EnumType.STRING)
     private TipoDesconto tipoDesconto;
 
     public enum TipoDesconto {

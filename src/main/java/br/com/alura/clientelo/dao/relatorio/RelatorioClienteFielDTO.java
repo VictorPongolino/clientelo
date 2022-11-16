@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 
 public class RelatorioClienteFielDTO {
     private String cliente;
-    private Integer quantidadePedidos;
+    private Long quantidadePedidos;
     private BigDecimal montante;
 
-    public RelatorioClienteFielDTO(String cliente, Integer quantidadePedidos, BigDecimal montante) {
+    public RelatorioClienteFielDTO(String cliente, Long quantidadePedidos, BigDecimal montante) {
         this.cliente = cliente;
         this.quantidadePedidos = quantidadePedidos;
         this.montante = montante;
@@ -21,11 +21,11 @@ public class RelatorioClienteFielDTO {
         this.cliente = cliente;
     }
 
-    public Integer getQuantidadePedidos() {
+    public Long getQuantidadePedidos() {
         return quantidadePedidos;
     }
 
-    public void setQuantidadePedidos(Integer quantidadePedidos) {
+    public void setQuantidadePedidos(Long quantidadePedidos) {
         this.quantidadePedidos = quantidadePedidos;
     }
 
@@ -35,5 +35,14 @@ public class RelatorioClienteFielDTO {
 
     public void setMontante(BigDecimal montante) {
         this.montante = montante;
+    }
+
+    @Override
+    public String toString() {
+        return "RelatorioClienteFielDTO{" +
+                "cliente='" + cliente + '\'' +
+                ", quantidadePedidos=" + quantidadePedidos +
+                ", montante=" + montante +
+                '}';
     }
 }

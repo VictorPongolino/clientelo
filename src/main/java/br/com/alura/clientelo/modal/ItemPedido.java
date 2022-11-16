@@ -28,6 +28,7 @@ public class ItemPedido {
     @ManyToOne(optional = false)
     private Produto produto;
     private BigDecimal desconto;
+    @Column(name = "tipo_desconto")
     @Enumerated(EnumType.STRING)
     private TipoDesconto tipoDesconto;
 

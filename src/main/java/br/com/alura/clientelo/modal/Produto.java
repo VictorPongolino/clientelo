@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 
 @Entity
 public class Produto {
@@ -16,15 +17,18 @@ public class Produto {
     @Column(name = "quantidade_estoque")
     private Integer qtdEstoque;
 
+    private BigDecimal preco;
+
     @ManyToOne(optional = false)
     private Categoria categoria;
 
     Produto() {}
 
-    public Produto(String nome, String descricao, Integer qtdEstoque, Categoria categoria) {
+    public Produto(String nome, String descricao, Integer qtdEstoque, BigDecimal preco, Categoria categoria) {
         this.nome = nome;
         this.descricao = descricao;
         this.qtdEstoque = qtdEstoque;
+        this.preco = preco;
         this.categoria = categoria;
     }
 
@@ -66,5 +70,25 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", qtdEstoque=" + qtdEstoque +
+                ", preco=" + preco +
+                ", categoria=" + categoria +
+                '}';
     }
 }

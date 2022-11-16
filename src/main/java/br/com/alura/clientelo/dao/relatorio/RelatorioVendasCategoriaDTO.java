@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 
 public class RelatorioVendasCategoriaDTO {
     private String categoria;
-    private Integer quantidadeProdutosVendidos;
+    private Long quantidadeProdutosVendidos;
     private BigDecimal montanteVendido;
 
-    public RelatorioVendasCategoriaDTO(String categoria, Integer quantidadeProdutosVendidos, BigDecimal montanteVendido) {
+    public RelatorioVendasCategoriaDTO(String categoria, Long quantidadeProdutosVendidos, BigDecimal montanteVendido) {
         this.categoria = categoria;
         this.quantidadeProdutosVendidos = quantidadeProdutosVendidos;
         this.montanteVendido = montanteVendido;
@@ -17,7 +17,7 @@ public class RelatorioVendasCategoriaDTO {
         return categoria;
     }
 
-    public Integer getQuantidadeProdutosVendidos() {
+    public Long getQuantidadeProdutosVendidos() {
         return quantidadeProdutosVendidos;
     }
 

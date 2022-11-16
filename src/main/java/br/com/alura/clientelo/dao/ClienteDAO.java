@@ -13,8 +13,8 @@ public class ClienteDAO {
 
     private EntityManager persistenceFactory;
 
-    public ClienteDAO(PersistenceFactory persistenceFactory) {
-        this.persistenceFactory = persistenceFactory.getInstance(DBProperties.CLIENT_ELO);
+    public ClienteDAO() {
+        this.persistenceFactory = PersistenceFactory.getInstance(DBProperties.CLIENT_ELO);
     }
 
     public Optional<Cliente> buscarPorId(Long clienteId) {
@@ -45,10 +45,5 @@ public class ClienteDAO {
     public List<Cliente> listaIndisponiveis() {
         TypedQuery<Cliente> query = persistenceFactory.createQuery("SELECT c FROM " + Cliente.class.getName() + " c WHERE c.qtdEstoque = 0", Cliente.class);
         return query.getResultList();
-    }
-
-    public Optional<Cliente> buscarPorNome(String cliente) {
-        // TODO
-        return null;
     }
 }

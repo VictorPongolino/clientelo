@@ -15,7 +15,7 @@ public class PersistenceFactory {
         return connection.get(database);
     }
 
-    public EntityManager getInstance(DBProperties dbProperties) {
+    public static EntityManager getInstance(DBProperties dbProperties) {
         return getInstance(dbProperties.getDatabase());
     }
 }
