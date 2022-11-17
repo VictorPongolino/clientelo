@@ -3,19 +3,18 @@ package br.com.alura.clientelo.dao.relatorio;
 import br.com.alura.clientelo.modal.ItemPedido;
 import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.modal.Produto;
-import br.com.alura.clientelo.persistence.DBProperties;
-import br.com.alura.clientelo.persistence.PersistenceFactory;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class OperacaoPedidoDAO {
-    private EntityManager persistenceFactory;
+@Service
+public class OperacaoPedidoService {
 
-    public OperacaoPedidoDAO() {
-        this.persistenceFactory = PersistenceFactory.getInstance(DBProperties.CLIENT_ELO);
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public List<RelatorioVendasCategoriaDTO> getVendasPorCategoria() {
         String jpql = "SELECT NEW " + RelatorioVendasCategoriaDTO.class.getName() + "(c.nome, SUM(i.quantidade), SUM(i.precoUnitario * i.quantidade)) " +
@@ -24,7 +23,7 @@ public class OperacaoPedidoDAO {
                       "JOIN p.itempedidos i " +
                       "GROUP BY c.nome " +
                       "ORDER BY c.nome ASC";
-        TypedQuery<RelatorioVendasCategoriaDTO> query = persistenceFactory.createQuery(jpql, RelatorioVendasCategoriaDTO.class);
+        TypedQuery<RelatorioVendasCategoriaDTO> query = entityManager.createQuery(jpql, RelatorioVendasCategoriaDTO.class);
         return query.getResultList();
     }
 
@@ -33,14 +32,14 @@ public class OperacaoPedidoDAO {
                 "FROM " + Pedido.class.getName() + " p " +
                 "JOIN p.itempedidos i " +
                 "GROUP BY p.cliente.nome";
-        TypedQuery<RelatorioClienteFielDTO> query = persistenceFactory.createQuery(jpql, RelatorioClienteFielDTO.class);
+        TypedQuery<RelatorioClienteFielDTO> query = entityManager.createQuery(jpql, RelatorioClienteFielDTO.class);
         query.setMaxResults(3);
         return query.getResultList();
     }
 
     public List<Produto> getProdutosTOP3() {
         String jpql = "SELECT i.produto FROM " + ItemPedido.class.getName() + " i GROUP BY i.produto HAVING COUNT(i.produto) > 3";
-        TypedQuery<Produto> query = persistenceFactory.createQuery(jpql, Produto.class);
+        TypedQuery<Produto> query = entityManager.createQuery(jpql, Produto.class);
         return query.getResultList();
     }
 
@@ -50,7 +49,7 @@ public class OperacaoPedidoDAO {
                 "JOIN p.itempedidos i " +
                 "GROUP BY p.cliente.nome " +
                 "ORDER BY SUM(i.precoUnitario * i.quantidade) DESC";
-        TypedQuery<ClienteLucrativoDTO> query = persistenceFactory.createQuery(jpql, ClienteLucrativoDTO.class);
+        TypedQuery<ClienteLucrativoDTO> query = entityManager.createQuery(jpql, ClienteLucrativoDTO.class);
         query.setMaxResults(2);
         return query.getResultList();
     }
