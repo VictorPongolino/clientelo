@@ -1,23 +1,24 @@
 package br.com.alura.clientelo.modal;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 @Entity
 @Table(name = "item_pedido")
 public class ItemPedido {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "preco_unitario")
     private BigDecimal precoUnitario;
@@ -42,7 +43,6 @@ public class ItemPedido {
         this.desconto = desconto;
         this.tipoDesconto = tipoDesconto;
     }
-
     public Long getId() {
         return id;
     }
@@ -97,6 +97,15 @@ public class ItemPedido {
 
     public void setTipoDesconto(TipoDesconto tipoDesconto) {
         this.tipoDesconto = tipoDesconto;
+    }
+
+    public void adicionarItem(int quantidade) {
+        this.quantidade += quantidade;
+        this.precoUnitario = this.precoUnitario.add(this.precoUnitario.multiply(new BigDecimal(quantidade)));
+    }
+
+    public boolean hasQuantidadeItem() {
+        return this.quantidade == 0;
     }
 
     public enum TipoDesconto { QUANTIDADE, PROMOCAO, NENHUM }

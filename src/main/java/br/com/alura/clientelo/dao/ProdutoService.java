@@ -2,6 +2,8 @@ package br.com.alura.clientelo.dao;
 
 import br.com.alura.clientelo.modal.Produto;
 import br.com.alura.clientelo.repository.ProdutoRepository;
+import jakarta.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ public class ProdutoService {
     public Optional<Produto> buscarPorId(Long produtoId) {
         return produtoRepository.findById(produtoId);
     }
+    @Transactional
     public Produto cadastrar(Produto produto) {
         return produtoRepository.save(produto);
     }

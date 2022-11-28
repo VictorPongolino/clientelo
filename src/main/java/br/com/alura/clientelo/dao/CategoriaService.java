@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import br.com.alura.clientelo.modal.Categoria;
 import br.com.alura.clientelo.repository.CategoriaRepository;
+import jakarta.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ public class CategoriaService {
     public Optional<Categoria> buscarPorId(Long categoriaId) {
         return categoriaRepository.findById(categoriaId);
     }
+    @Transactional
     public Categoria cadastrar(Categoria categoria) {
         return categoriaRepository.save(categoria);
     }

@@ -1,21 +1,27 @@
 package br.com.alura.clientelo.modal;
 
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
 @Entity
 public class Pedido {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(optional = false)
-    private Categoria categoria;
 
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itempedidos;
@@ -38,8 +44,7 @@ public class Pedido {
 
     Pedido() {}
 
-    public Pedido(Categoria categoria, List<ItemPedido> itempedidos, Cliente cliente, LocalDate data) {
-        this.categoria = categoria;
+    public Pedido(List<ItemPedido> itempedidos, Cliente cliente, LocalDate data) {
         this.itempedidos = itempedidos;
         this.cliente = cliente;
         this.data = data;
@@ -51,15 +56,6 @@ public class Pedido {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
     }
 
     public Cliente getCliente() {
@@ -105,7 +101,6 @@ public class Pedido {
     @Override
     public String toString() {
         return "Pedido{" +
-                "categoria='" + categoria + '\'' +
                 ", cliente='" + cliente + '\'' +
                 ", data=" + data +
                 '}';

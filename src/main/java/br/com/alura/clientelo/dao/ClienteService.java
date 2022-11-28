@@ -2,6 +2,8 @@ package br.com.alura.clientelo.dao;
 
 import br.com.alura.clientelo.modal.Cliente;
 import br.com.alura.clientelo.repository.ClienteRepository;
+import jakarta.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ public class ClienteService {
     public Optional<Cliente> buscarPorId(Long clienteId) {
         return clienteRepository.findById(clienteId);
     }
+    @Transactional
     public Cliente cadastrar(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
