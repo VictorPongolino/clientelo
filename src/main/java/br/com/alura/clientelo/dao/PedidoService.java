@@ -15,4 +15,8 @@ public class PedidoService {
     public Pedido cadastrar(Pedido pedido) {
         return pedidoRepository.save(pedido);
     }
+
+    public Long getTotalPedidosByClienteId(Long id) {
+        return pedidoRepository.countByClienteId(id);
+    }
 }
