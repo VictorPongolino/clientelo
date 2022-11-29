@@ -1,8 +1,8 @@
-package br.com.alura.clientelo.controller.pedido;
+package br.com.alura.clientelo.controller.pedido.cadastro;
 
 public class CadastroPedidoResultado {
-    private Long idProduto;
-    private Long quantidadeVendida;
+    private final Long idProduto;
+    private final Long quantidadeVendida;
 
     public CadastroPedidoResultado(Long idProduto, Long quantidadeVendida) {
         this.idProduto = idProduto;

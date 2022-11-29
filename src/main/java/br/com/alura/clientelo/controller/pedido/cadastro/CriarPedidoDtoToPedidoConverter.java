@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.controller.pedido;
+package br.com.alura.clientelo.controller.pedido.cadastro;
 
 import org.springframework.stereotype.Component;
 
@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import br.com.alura.clientelo.controller.pedido.cadastro.CriarPedidoDTO;
 import br.com.alura.clientelo.modal.Cliente;
 import br.com.alura.clientelo.modal.ItemPedido;
 import br.com.alura.clientelo.modal.Pedido;

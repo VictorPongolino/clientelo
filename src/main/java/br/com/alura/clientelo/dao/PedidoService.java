@@ -1,5 +1,8 @@
 package br.com.alura.clientelo.dao;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.repository.PedidoRepository;
 import jakarta.transaction.Transactional;
@@ -18,5 +21,9 @@ public class PedidoService {
 
     public Long getTotalPedidosByClienteId(Long id) {
         return pedidoRepository.countByClienteId(id);
+    }
+
+    public Page<Pedido> findAll(Pageable pageable) {
+        return pedidoRepository.findAll(pageable);
     }
 }

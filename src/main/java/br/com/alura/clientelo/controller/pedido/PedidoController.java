@@ -1,6 +1,11 @@
 package br.com.alura.clientelo.controller.pedido;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +18,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import br.com.alura.clientelo.controller.pedido.cadastro.CriarPedidoDTO;
+import br.com.alura.clientelo.controller.pedido.cadastro.CriarPedidoDtoToPedidoConverter;
 import br.com.alura.clientelo.dao.PedidoService;
 import br.com.alura.clientelo.modal.ItemPedido;
 import br.com.alura.clientelo.modal.Pedido;
@@ -28,6 +35,20 @@ public class PedidoController {
     public PedidoController(CriarPedidoDtoToPedidoConverter criarPedidoDtoToPedidoConverter, PedidoService pedidoService) {
         this.criarPedidoDtoToPedidoConverter = criarPedidoDtoToPedidoConverter;
         this.pedidoService = pedidoService;
+    }
+
+    @GetMapping
+    public Page<ListagemPedidosDTO> listarPedido(@PageableDefault(size = 5, sort = "data", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<ListagemPedidosDTO> pedidos = pedidoService.findAll(pageable).map(pedido -> {
+            BigDecimal valor = pedido.getItempedidos().stream().map(ItemPedido::getMontanteTotal).reduce(BigDecimal.ZERO, (antes, dps) -> antes.add(dps));
+            BigDecimal desconto = pedido.getItempedidos().stream().map(ItemPedido::getDesconto).reduce(BigDecimal.ZERO,  (antes, dps) -> antes.add(dps));
+
+            ListagemPedidosDTO.ListagemPedidoCliente cliente = new ListagemPedidosDTO.ListagemPedidoCliente(pedido.getCliente().getId(), pedido.getCliente().getNome());
+
+            return new ListagemPedidosDTO(pedido.getData(), valor, desconto, Long.valueOf(pedido.getItempedidos().size()), cliente);
+        });
+
+        return pedidos;
     }
 
     @PostMapping

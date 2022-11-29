@@ -2,12 +2,12 @@ package br.com.alura.clientelo.controller.produto;
 
 import br.com.alura.clientelo.dao.ProdutoService;
 import br.com.alura.clientelo.modal.Produto;
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/produtos")
