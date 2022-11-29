@@ -109,6 +109,10 @@ public class ItemPedido {
         this.tipoDesconto = tipoDesconto;
     }
 
+    public BigDecimal getPrecoFinal() {
+        return getMontanteTotal().subtract(desconto);
+    }
+
     public BigDecimal getMontanteTotal() {
         return this.precoUnitario.multiply(new BigDecimal(quantidade));
     }

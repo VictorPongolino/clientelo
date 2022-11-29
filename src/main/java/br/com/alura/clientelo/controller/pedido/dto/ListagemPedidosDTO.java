@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.controller.pedido;
+package br.com.alura.clientelo.controller.pedido.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -38,7 +38,7 @@ public class ListagemPedidosDTO {
         return cliente;
     }
 
-    static class ListagemPedidoCliente {
+    public static class ListagemPedidoCliente {
         private final Long id;
         private final String nome;
 
