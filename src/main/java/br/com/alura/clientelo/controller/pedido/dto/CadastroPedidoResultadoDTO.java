@@ -1,10 +1,10 @@
-package br.com.alura.clientelo.controller.pedido.cadastro;
+package br.com.alura.clientelo.controller.pedido.dto;
 
-public class CadastroPedidoResultado {
+public class CadastroPedidoResultadoDTO {
     private final Long idProduto;
     private final Long quantidadeVendida;
 
-    public CadastroPedidoResultado(Long idProduto, Long quantidadeVendida) {
+    public CadastroPedidoResultadoDTO(Long idProduto, Long quantidadeVendida) {
         this.idProduto = idProduto;
         this.quantidadeVendida = quantidadeVendida;
     }

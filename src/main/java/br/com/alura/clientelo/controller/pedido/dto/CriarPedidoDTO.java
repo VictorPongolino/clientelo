@@ -1,13 +1,13 @@
-package br.com.alura.clientelo.controller.pedido.cadastro;
+package br.com.alura.clientelo.controller.pedido.dto;
 
 import java.util.Collections;
 import java.util.Set;
 
 public class CriarPedidoDTO {
     private final Long idCliente;
-    private final Set<CadastroPedidoResultado> cadastroPedidoResultado;
+    private final Set<CadastroPedidoResultadoDTO> cadastroPedidoResultado;
 
-    public CriarPedidoDTO(Long idCliente, Set<CadastroPedidoResultado> cadastroPedidoResultado) {
+    public CriarPedidoDTO(Long idCliente, Set<CadastroPedidoResultadoDTO> cadastroPedidoResultado) {
         this.idCliente = idCliente;
         this.cadastroPedidoResultado = cadastroPedidoResultado;
     }
@@ -16,7 +16,7 @@ public class CriarPedidoDTO {
         return idCliente;
     }
 
-    public Set<CadastroPedidoResultado> getCadastroPedidoResultado() {
+    public Set<CadastroPedidoResultadoDTO> getCadastroPedidoResultado() {
         return Collections.unmodifiableSet(cadastroPedidoResultado);
     }
 }

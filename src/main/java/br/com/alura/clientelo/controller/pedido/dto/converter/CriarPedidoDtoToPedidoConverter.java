@@ -1,5 +1,6 @@
-package br.com.alura.clientelo.controller.pedido.cadastro;
+package br.com.alura.clientelo.controller.pedido.dto.converter;
 
+import br.com.alura.clientelo.controller.pedido.dto.CriarPedidoDTO;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -7,7 +8,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import br.com.alura.clientelo.controller.pedido.cadastro.CriarPedidoDTO;
 import br.com.alura.clientelo.modal.Cliente;
 import br.com.alura.clientelo.modal.ItemPedido;
 import br.com.alura.clientelo.modal.Pedido;

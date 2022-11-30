@@ -98,6 +98,10 @@ public class Pedido {
         this.tipoDesconto = tipoDesconto;
     }
 
+    public BigDecimal getPrecoFinal() {
+        return itempedidos.stream().map(ItemPedido::getPrecoFinal).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
     @Override
     public String toString() {
         return "Pedido{" +

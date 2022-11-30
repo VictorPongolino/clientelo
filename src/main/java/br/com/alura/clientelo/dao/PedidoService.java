@@ -7,6 +7,8 @@ import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.repository.PedidoRepository;
 import jakarta.transaction.Transactional;
 
+import java.util.Optional;
+
 public class PedidoService {
     private final PedidoRepository pedidoRepository;
 
@@ -25,5 +27,9 @@ public class PedidoService {
 
     public Page<Pedido> findAll(Pageable pageable) {
         return pedidoRepository.findAll(pageable);
+    }
+
+    public Optional<Pedido> findById(Long pedidoId) {
+        return pedidoRepository.findById(pedidoId);
     }
 }
