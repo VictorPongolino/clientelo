@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.clientelo.dao.ClienteService;
 import br.com.alura.clientelo.modal.Cliente;
-import jakarta.validation.Valid;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/clientes")

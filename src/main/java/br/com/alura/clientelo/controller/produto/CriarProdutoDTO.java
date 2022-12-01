@@ -4,8 +4,8 @@ import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 public class CriarProdutoDTO {
 

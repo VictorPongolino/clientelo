@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.modal;
 
 
-import jakarta.persistence.Embeddable;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class Endereco {

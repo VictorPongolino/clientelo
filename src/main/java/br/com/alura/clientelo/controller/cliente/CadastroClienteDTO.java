@@ -1,7 +1,6 @@
 package br.com.alura.clientelo.controller.cliente;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 public class CadastroClienteDTO {
     @NotEmpty

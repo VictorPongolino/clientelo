@@ -5,8 +5,8 @@ import org.springframework.data.domain.Pageable;
 
 import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.repository.PedidoRepository;
-import jakarta.transaction.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 public class PedidoService {

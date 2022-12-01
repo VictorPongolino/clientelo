@@ -2,17 +2,8 @@ package br.com.alura.clientelo.modal;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "item_pedido")

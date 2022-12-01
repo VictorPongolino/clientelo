@@ -4,11 +4,12 @@ import java.util.Optional;
 
 import br.com.alura.clientelo.modal.Categoria;
 import br.com.alura.clientelo.repository.CategoriaRepository;
-import jakarta.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 
 @Service

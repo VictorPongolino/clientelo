@@ -22,7 +22,8 @@ import br.com.alura.clientelo.controller.pedido.dto.CriarPedidoDTO;
 import br.com.alura.clientelo.dao.PedidoService;
 import br.com.alura.clientelo.modal.ItemPedido;
 import br.com.alura.clientelo.modal.Pedido;
-import jakarta.validation.Valid;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/pedidos")

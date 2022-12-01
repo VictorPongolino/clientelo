@@ -2,12 +2,11 @@ package br.com.alura.clientelo.dao;
 
 import br.com.alura.clientelo.modal.Produto;
 import br.com.alura.clientelo.repository.ProdutoRepository;
-import jakarta.transaction.Transactional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
