@@ -15,7 +15,7 @@ public class CriarProdutoDtoToProdutoConverter {
     }
 
     public Produto converter(CriarProdutoDTO produtoDTO){
-        Categoria categoria = categoriaService.buscarPorId(produtoDTO.getCategoriaId()).orElseThrow();
+        Categoria categoria = categoriaService.findById(produtoDTO.getCategoriaId()).orElseThrow();
         return new Produto(produtoDTO.getNomeProduto(),
                 produtoDTO.getDescricao(),
                 produtoDTO.getQuantidadeEstoque(),

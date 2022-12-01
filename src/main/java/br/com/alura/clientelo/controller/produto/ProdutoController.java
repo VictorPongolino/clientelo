@@ -18,11 +18,12 @@ public class ProdutoController {
     private final ProdutoService produtoService;
     private final CriarProdutoDtoToProdutoConverter produtoConverter;
     private final ProdutoToListagemProdutosDTOConverter listagemProdutosDTOConverter;
-
-    public ProdutoController(ProdutoService produtoService, CriarProdutoDtoToProdutoConverter produtoConverter, ProdutoToListagemProdutosDTOConverter listagemProdutosDTOConverter) {
+    private final AtualizarProdutoToProdutoConverter atualizarProdutoToProdutoConverter;
+    public ProdutoController(ProdutoService produtoService, CriarProdutoDtoToProdutoConverter produtoConverter, ProdutoToListagemProdutosDTOConverter listagemProdutosDTOConverter, AtualizarProdutoToProdutoConverter atualizarProdutoToProdutoConverter) {
         this.produtoService = produtoService;
         this.produtoConverter = produtoConverter;
         this.listagemProdutosDTOConverter = listagemProdutosDTOConverter;
+        this.atualizarProdutoToProdutoConverter = atualizarProdutoToProdutoConverter;
     }
 
     @PostMapping
@@ -32,8 +33,8 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public void atualizarProduto(@PathVariable("id") Long produtoId) {
-
+    public void atualizarProduto(@PathVariable("id") Long produtoId, @RequestBody @Valid AtualizarProdutoDTO atualizarProduto) {
+        produtoService.atualizar(atualizarProdutoToProdutoConverter.convert(produtoId, atualizarProduto));
     }
 
     @GetMapping

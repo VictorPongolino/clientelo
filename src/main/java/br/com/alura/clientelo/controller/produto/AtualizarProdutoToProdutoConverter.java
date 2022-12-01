@@ -1,0 +1,28 @@
+package br.com.alura.clientelo.controller.produto;
+
+import br.com.alura.clientelo.dao.CategoriaService;
+import br.com.alura.clientelo.dao.ProdutoService;
+import br.com.alura.clientelo.modal.Categoria;
+import br.com.alura.clientelo.modal.Produto;
+
+public class AtualizarProdutoToProdutoConverter {
+
+    private final ProdutoService produtoService;
+    private final CategoriaService categoriaService;
+
+    public AtualizarProdutoToProdutoConverter(ProdutoService produtoService, CategoriaService categoriaService) {
+        this.produtoService = produtoService;
+        this.categoriaService = categoriaService;
+    }
+
+    public Produto convert(Long produtoId, AtualizarProdutoDTO atualizarProdutoDTO) {
+        Produto produto = produtoService.findById(produtoId).orElseThrow();
+        Categoria categoria = categoriaService.findById(atualizarProdutoDTO.getCategoriaId()).orElseThrow();
+        produto.setNome(atualizarProdutoDTO.getNome());
+        produto.setPreco(atualizarProdutoDTO.getPreco());
+        produto.setDescricao(atualizarProdutoDTO.getDescricao());
+        produto.setQtdEstoque(atualizarProdutoDTO.getQuantidade());
+        produto.setCategoria(categoria);
+        return produto;
+    }
+}
