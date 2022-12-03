@@ -12,11 +12,11 @@ import static br.com.alura.clientelo.modal.Categoria.Status.INATIVA;
 
 @RestController
 @RequestMapping("/api/categorias")
-public class CategoriaControllerController {
+public class CategoriaController {
     private final CategoriaService categoriaService;
     private final CadastrarCategoriaDtoToCategoria cadastrarCategoriaConverter;
 
-    public CategoriaControllerController(CategoriaService categoriaService, CadastrarCategoriaDtoToCategoria converter) {
+    public CategoriaController(CategoriaService categoriaService, CadastrarCategoriaDtoToCategoria converter) {
         this.categoriaService = categoriaService;
         this.cadastrarCategoriaConverter = converter;
     }

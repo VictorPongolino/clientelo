@@ -8,10 +8,12 @@ import br.com.alura.clientelo.modal.Cliente;
 import br.com.alura.clientelo.modal.ItemPedido;
 import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.modal.Produto;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Component
 public class PedidoToDetalhePedidoDtoConverter {
 
     private final PedidoService pedidoService;

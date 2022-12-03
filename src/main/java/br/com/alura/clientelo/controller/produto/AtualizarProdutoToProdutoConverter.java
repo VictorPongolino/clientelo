@@ -4,7 +4,9 @@ import br.com.alura.clientelo.dao.CategoriaService;
 import br.com.alura.clientelo.dao.ProdutoService;
 import br.com.alura.clientelo.modal.Categoria;
 import br.com.alura.clientelo.modal.Produto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AtualizarProdutoToProdutoConverter {
 
     private final ProdutoService produtoService;

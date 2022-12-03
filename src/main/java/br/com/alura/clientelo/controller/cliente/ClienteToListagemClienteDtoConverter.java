@@ -1,7 +1,9 @@
 package br.com.alura.clientelo.controller.cliente;
 
 import br.com.alura.clientelo.modal.Cliente;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ClienteToListagemClienteDtoConverter {
 
     public ListagemClienteDTO convert(Cliente cliente) {

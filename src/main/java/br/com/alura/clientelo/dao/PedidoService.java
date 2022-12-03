@@ -5,10 +5,12 @@ import org.springframework.data.domain.Pageable;
 
 import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.repository.PedidoRepository;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
 
+@Service
 public class PedidoService {
     private final PedidoRepository pedidoRepository;
 
