@@ -4,5 +4,6 @@
 *.ipr
 
 .env
+.yml
 
 target/
