@@ -19,8 +19,8 @@ public class OperacaoPedidoService {
     public List<RelatorioVendasCategoriaDTO> getVendasPorCategoria() {
         String jpql = "SELECT NEW " + RelatorioVendasCategoriaDTO.class.getName() + "(c.nome, SUM(i.quantidade), SUM(i.precoUnitario * i.quantidade)) " +
                       "FROM " + Pedido.class.getName() + " p " +
-                      "JOIN p.categoria c " +
                       "JOIN p.itempedidos i " +
+                      "JOIN i.produto.categoria c " +
                       "GROUP BY c.nome " +
                       "ORDER BY c.nome ASC";
         TypedQuery<RelatorioVendasCategoriaDTO> query = entityManager.createQuery(jpql, RelatorioVendasCategoriaDTO.class);
