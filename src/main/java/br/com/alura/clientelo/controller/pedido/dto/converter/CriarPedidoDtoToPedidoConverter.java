@@ -26,7 +26,7 @@ public class CriarPedidoDtoToPedidoConverter {
     }
 
     public Pedido convert(CriarPedidoDTO criarPedidoDTO) {
-        Cliente cliente = clienteRepository.findById(criarPedidoDTO.getIdCliente()).orElseThrow();
+        Cliente cliente = clienteRepository.findById(criarPedidoDTO.getIdCliente()).orElseThrow(() -> new ClienteNotFoundException(criarPedidoDTO.getIdCliente()));
 
         LocalDate data = LocalDate.now();
         ArrayList<ItemPedido> itemPedidos = new ArrayList<>();

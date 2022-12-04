@@ -1,5 +1,6 @@
 package br.com.alura.clientelo.controller.produto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.DecimalMin;
@@ -19,9 +20,10 @@ public class AtualizarProdutoDTO {
     @Min(0)
     private final Integer quantidade;
     @NotNull
-    private final Long categoriaId;
+    @JsonProperty("categoria_id")
+    private final Integer categoriaId;
 
-    public AtualizarProdutoDTO(String nome, BigDecimal preco, String descricao, Integer quantidade, Long categoriaId) {
+    public AtualizarProdutoDTO(String nome, BigDecimal preco, String descricao, Integer quantidade, Integer categoriaId) {
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
@@ -45,7 +47,7 @@ public class AtualizarProdutoDTO {
         return quantidade;
     }
 
-    public Long getCategoriaId() {
+    public Integer getCategoriaId() {
         return categoriaId;
     }
 }

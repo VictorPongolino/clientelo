@@ -20,7 +20,7 @@ public class CategoriaService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    public Optional<Categoria> findById(Long categoriaId) {
+    public Optional<Categoria> findById(Integer categoriaId) {
         return categoriaRepository.findById(categoriaId);
     }
     @Transactional

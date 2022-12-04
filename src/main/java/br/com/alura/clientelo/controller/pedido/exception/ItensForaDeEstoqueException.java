@@ -8,14 +8,22 @@ import java.util.List;
 public class ItensForaDeEstoqueException extends RuntimeException {
     private List<ItemForaDeEstoque> pedidos;
     public ItensForaDeEstoqueException(List<ItemPedido> pedidosForaEstoque) {
-        pedidosForaEstoque.forEach(pedido -> pedidos.add(new ItemForaDeEstoque(pedido.getProduto().getNome())));
+        super("Produto fora de estoque");
+        pedidosForaEstoque.forEach(pedido -> pedidos.add(new ItemForaDeEstoque(pedido.getProduto().getNome(), pedido.getProduto().getQtdEstoque())));
+    }
+
+    public List<ItemForaDeEstoque> getPedidos() {
+        return pedidos;
     }
 
     public class ItemForaDeEstoque {
         private String nome;
+        private Integer quantidade;
 
-        public ItemForaDeEstoque(String nome) {
+        public ItemForaDeEstoque(String nome, Integer quantidade) {
+
             this.nome = nome;
+            this.quantidade = quantidade;
         }
 
         public String getNome() {

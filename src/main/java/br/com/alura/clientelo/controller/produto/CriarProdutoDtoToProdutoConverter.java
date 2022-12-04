@@ -1,5 +1,6 @@
 package br.com.alura.clientelo.controller.produto;
 
+import br.com.alura.clientelo.controller.categoria.CategoriaNaoEncontradaException;
 import br.com.alura.clientelo.dao.CategoriaService;
 import br.com.alura.clientelo.modal.Categoria;
 import br.com.alura.clientelo.modal.Produto;
@@ -15,7 +16,7 @@ public class CriarProdutoDtoToProdutoConverter {
     }
 
     public Produto converter(CriarProdutoDTO produtoDTO){
-        Categoria categoria = categoriaService.findById(produtoDTO.getCategoriaId()).orElseThrow();
+        Categoria categoria = categoriaService.findById(produtoDTO.getCategoriaId()).orElseThrow(() -> new CategoriaNaoEncontradaException(produtoDTO.getCategoriaId()));
         return new Produto(produtoDTO.getNomeProduto(),
                 produtoDTO.getDescricao(),
                 produtoDTO.getQuantidadeEstoque(),

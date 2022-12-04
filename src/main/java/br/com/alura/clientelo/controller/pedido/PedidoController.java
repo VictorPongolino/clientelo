@@ -4,6 +4,8 @@ import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoDTO;
 import br.com.alura.clientelo.controller.pedido.dto.ListagemPedidosDTO;
 import br.com.alura.clientelo.controller.pedido.dto.converter.CriarPedidoDtoToPedidoConverter;
 import br.com.alura.clientelo.controller.pedido.dto.converter.PedidoToDetalhePedidoDtoConverter;
+import br.com.alura.clientelo.controller.pedido.exception.ItensForaDeEstoqueException;
+import br.com.alura.clientelo.controller.pedido.exception.PedidoNaoExisteException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -55,17 +57,16 @@ public class PedidoController {
 
     @GetMapping("/{id}")
     public DetalhePedidoDTO detalhesPedido(@PathVariable("id") Long pedidoId) {
-        Pedido pedido = pedidoService.findById(pedidoId).orElseThrow();
+        Pedido pedido = pedidoService.findById(pedidoId).orElseThrow(() -> new PedidoNaoExisteException(pedidoId));
         return detalhePedidoConverter.converter(pedido);
     }
 
     @PostMapping
     public void criarPedido(@RequestBody @Valid CriarPedidoDTO criarPedidoDTO) {
         Pedido pedido = criarPedidoDtoToPedidoConverter.convert(criarPedidoDTO);
-        Optional<ItemPedido> itemPedidoSemEstoque = pedido.getItempedidos().stream().filter(itemPedido -> itemPedido.getProduto().isForaDeEstoque()).findFirst();
-        if (itemPedidoSemEstoque.isPresent()) {
-            Long produtoId = itemPedidoSemEstoque.get().getProduto().getId();
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, String.format("Produto Id %d esta fora de estoque!", produtoId));
+        List<ItemPedido> itemPedidoSemEstoque = pedido.getItempedidos().stream().filter(itemPedido -> itemPedido.getProduto().isForaDeEstoque()).collect(Collectors.toList());
+        if (!itemPedidoSemEstoque.isEmpty()) {
+            throw new ItensForaDeEstoqueException(itemPedidoSemEstoque);
         }
 
         ArrayList<ItemPedido> itensPedidos = new ArrayList<>();

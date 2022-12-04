@@ -22,7 +22,7 @@ public class CategoriaController {
     }
 
     @PatchMapping("/api/categorias/{id}")
-    public void atualizarStatusCategoria(@PathVariable Long id) {
+    public void atualizarStatusCategoria(@PathVariable Integer id) {
         Categoria categoria = categoriaService.findById(id).orElseThrow();
         categoria.setStatus(ATIVA.equals(categoria.getStatus()) ? INATIVA : ATIVA);
     }
