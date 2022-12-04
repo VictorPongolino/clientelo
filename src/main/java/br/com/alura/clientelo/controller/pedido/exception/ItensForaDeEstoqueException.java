@@ -26,6 +26,10 @@ public class ItensForaDeEstoqueException extends RuntimeException {
             this.quantidade = quantidade;
         }
 
+        public Integer getQuantidade() {
+            return quantidade;
+        }
+
         public String getNome() {
             return nome;
         }

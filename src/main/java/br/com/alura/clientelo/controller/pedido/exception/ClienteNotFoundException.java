@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.controller.pedido.dto.converter;
+package br.com.alura.clientelo.controller.pedido.exception;
 
 public class ClienteNotFoundException extends RuntimeException {
 

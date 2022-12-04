@@ -1,6 +1,7 @@
 package br.com.alura.clientelo.controller.pedido.dto.converter;
 
 import br.com.alura.clientelo.controller.pedido.dto.CriarPedidoDTO;
+import br.com.alura.clientelo.controller.pedido.exception.ClienteNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
