@@ -1,13 +1,18 @@
 package br.com.alura.clientelo.controller.cliente;
 
+import br.com.alura.clientelo.validator.Telefone;
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.validation.constraints.NotEmpty;
 
 public class CadastroClienteDTO {
     @NotEmpty
     private String nome;
     @NotEmpty
+    @CPF
     private String cpf;
     @NotEmpty
+    @Telefone
     private final String telefone;
     @NotEmpty
     private final String rua;

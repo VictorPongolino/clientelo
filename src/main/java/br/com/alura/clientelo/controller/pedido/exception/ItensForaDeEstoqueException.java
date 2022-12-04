@@ -9,7 +9,7 @@ public class ItensForaDeEstoqueException extends RuntimeException {
     private List<ItemForaDeEstoque> pedidos;
     public ItensForaDeEstoqueException(List<ItemPedido> pedidosForaEstoque) {
         super("Produto fora de estoque");
-        pedidosForaEstoque.forEach(pedido -> pedidos.add(new ItemForaDeEstoque(pedido.getProduto().getNome(), pedido.getProduto().getQtdEstoque())));
+        pedidosForaEstoque.forEach(pedido -> pedidos.add(new ItemForaDeEstoque(pedido.getProduto().getId(), pedido.getProduto().getNome(), pedido.getProduto().getQtdEstoque())));
     }
 
     public List<ItemForaDeEstoque> getPedidos() {
@@ -17,13 +17,18 @@ public class ItensForaDeEstoqueException extends RuntimeException {
     }
 
     public class ItemForaDeEstoque {
+        private Long produtoId;
         private String nome;
         private Integer quantidade;
 
-        public ItemForaDeEstoque(String nome, Integer quantidade) {
-
+        public ItemForaDeEstoque(Long produtoId, String nome, Integer quantidade) {
+            this.produtoId = produtoId;
             this.nome = nome;
             this.quantidade = quantidade;
+        }
+
+        public Long getProdutoId() {
+            return produtoId;
         }
 
         public Integer getQuantidade() {
@@ -32,6 +37,15 @@ public class ItensForaDeEstoqueException extends RuntimeException {
 
         public String getNome() {
             return nome;
+        }
+
+        @Override
+        public String toString() {
+            return "ItemForaDeEstoque{" +
+                    "produtoId=" + produtoId +
+                    ", nome='" + nome + '\'' +
+                    ", quantidade=" + quantidade +
+                    '}';
         }
     }
 }

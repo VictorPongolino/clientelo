@@ -1,103 +1,82 @@
 package br.com.alura.clientelo.controller;
 
-import br.com.alura.clientelo.controller.AdvicerController.APIErrorMessage.APIErrorItem;
 import br.com.alura.clientelo.controller.categoria.CategoriaNaoEncontradaException;
 import br.com.alura.clientelo.controller.pedido.exception.ClienteNotFoundException;
 import br.com.alura.clientelo.controller.pedido.exception.ItensForaDeEstoqueException;
-import br.com.alura.clientelo.controller.pedido.exception.ItensForaDeEstoqueException.ItemForaDeEstoque;
 import br.com.alura.clientelo.controller.pedido.exception.PedidoNaoExisteException;
 import br.com.alura.clientelo.controller.produto.exception.ProdutoNaoEncontradoException;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestControllerAdvice
-public class AdvicerController {
+public class AdvicerController extends ResponseEntityExceptionHandler {
+
+    @Override
+    protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ArrayList<String> erros = new ArrayList<>();
+        for (ObjectError errors : ex.getAllErrors()) {
+            erros.add(errors.getDefaultMessage());
+        }
+
+        APIErrorMessage errorMessage = new APIErrorMessage(ex.getMessage(), erros);
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(ItensForaDeEstoqueException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public APIErrorMessage handleItensForaDeEstoqueException(ItensForaDeEstoqueException ex) {
-        List<APIErrorItem> errors = ex.getPedidos().stream()
-                .map(er -> new APIErrorItem(er.getNome(), er.getQuantidade().toString(), "Produto inexistente"))
-                .collect(Collectors.toList());
-        return new APIErrorMessage(ex.getMessage(), null, errors);
+    public ResponseEntity<APIErrorMessage> handleItensForaDeEstoqueException(ItensForaDeEstoqueException ex) {
+        return new ResponseEntity<>(new APIErrorMessage(ex.getMessage(), ex.getPedidos()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CategoriaNaoEncontradaException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public APIErrorMessage handleCategoriaNaoEncontradaException(CategoriaNaoEncontradaException ex) {
-        return new APIErrorMessage(ex.getMessage(), null, null);
+    public ResponseEntity<APIErrorMessage> handleCategoriaNaoEncontradaException(CategoriaNaoEncontradaException ex) {
+        return new ResponseEntity<>(new APIErrorMessage(ex.getMessage(), null), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ProdutoNaoEncontradoException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public APIErrorMessage handleProdutoNaoEncontradoException(ProdutoNaoEncontradoException ex) {
-        return new APIErrorMessage(ex.getMessage(), null, null);
+    public ResponseEntity<APIErrorMessage> handleProdutoNaoEncontradoException(ProdutoNaoEncontradoException ex) {
+        return new ResponseEntity<>(new APIErrorMessage(ex.getMessage(), null), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ClienteNotFoundException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public APIErrorMessage handleClienteNotFoundException(ClienteNotFoundException ex) {
-        return new APIErrorMessage(ex.getMessage(), null, null);
+    public ResponseEntity<APIErrorMessage> handleClienteNotFoundException(ClienteNotFoundException ex) {
+        return new ResponseEntity<>(new APIErrorMessage(ex.getMessage(), null), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(PedidoNaoExisteException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public APIErrorMessage handlePedidoNaoExisteException(PedidoNaoExisteException ex) {
-        return new APIErrorMessage(ex.getMessage(), null, null);
+    public ResponseEntity<APIErrorMessage> handlePedidoNaoExisteException(PedidoNaoExisteException ex) {
+        return new ResponseEntity<>(new APIErrorMessage(ex.getMessage(), null), HttpStatus.BAD_REQUEST);
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class APIErrorMessage<T> {
-        private String mensagem;
-        private String descricao;
-        private List<APIErrorItem> erros;
 
-        public APIErrorMessage(String mensagem, String descricao, List<APIErrorItem> erros) {
-            this.mensagem = mensagem;
-            this.descricao = descricao;
-            this.erros = erros;
+        private String message;
+        private List<String> detalhes;
+
+        public APIErrorMessage(String message, List<String> detalhes) {
+            this.message = message;
+            this.detalhes = detalhes;
         }
 
-        public String getMensagem() {
-            return mensagem;
+        public String getMessage() {
+            return message;
         }
 
-        public String getDescricao() {
-            return descricao;
-        }
-
-        public List<APIErrorItem> getErros() {
-            return erros;
-        }
-
-        static class APIErrorItem {
-            private String item;
-            private String valor;
-            private String message;
-
-            public APIErrorItem(String item, String valor, String message) {
-                this.item = item;
-                this.valor = valor;
-                this.message = message;
-            }
-
-            public String getItem() {
-                return item;
-            }
-
-            public String getValor() {
-                return valor;
-            }
-
-            public String getMessage() {
-                return message;
-            }
+        public List<String> getDetalhes() {
+            return detalhes;
         }
     }
 }
