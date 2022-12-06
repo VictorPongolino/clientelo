@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class ListagemPedidosDTO {
+public class ListagemPedidosVO {
     @JsonProperty("data_pedido")
     private final LocalDate dataPedido;
     private final BigDecimal valor;
@@ -14,7 +14,7 @@ public class ListagemPedidosDTO {
     private final Long quantidadePedidos;
     private final ListagemPedidoCliente cliente;
 
-    public ListagemPedidosDTO(LocalDate dataPedido, BigDecimal valor, BigDecimal desconto, Long quantidadePedidos, ListagemPedidoCliente cliente) {
+    public ListagemPedidosVO(LocalDate dataPedido, BigDecimal valor, BigDecimal desconto, Long quantidadePedidos, ListagemPedidoCliente cliente) {
         this.dataPedido = dataPedido;
         this.valor = valor;
         this.desconto = desconto;

@@ -1,12 +1,12 @@
 package br.com.alura.clientelo.controller.cliente;
 
-public class ListagemClienteDTO {
+public class ListagemClienteVO {
     private final String nome;
     private final String cpf;
     private final String telefone;
     private final String local;
 
-    public ListagemClienteDTO(String nome, String cpf, String telefone, String local) {
+    public ListagemClienteVO(String nome, String cpf, String telefone, String local) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;

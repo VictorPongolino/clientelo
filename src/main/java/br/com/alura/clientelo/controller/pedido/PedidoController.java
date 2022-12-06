@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.controller.pedido;
 
-import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoDTO;
-import br.com.alura.clientelo.controller.pedido.dto.ListagemPedidosDTO;
+import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoVO;
+import br.com.alura.clientelo.controller.pedido.dto.ListagemPedidosVO;
 import br.com.alura.clientelo.controller.pedido.dto.converter.CriarPedidoDtoToPedidoConverter;
 import br.com.alura.clientelo.controller.pedido.dto.converter.PedidoToDetalhePedidoDtoConverter;
 import br.com.alura.clientelo.controller.pedido.exception.ItensForaDeEstoqueException;
@@ -10,14 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import br.com.alura.clientelo.controller.pedido.dto.CriarPedidoDTO;
@@ -42,21 +39,21 @@ public class PedidoController {
     }
 
     @GetMapping
-    public Page<ListagemPedidosDTO> listarPedido(@PageableDefault(size = 5, sort = "data", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<ListagemPedidosDTO> pedidos = pedidoService.findAll(pageable).map(pedido -> {
+    public Page<ListagemPedidosVO> listarPedido(@PageableDefault(size = 5, sort = "data", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<ListagemPedidosVO> pedidos = pedidoService.findAll(pageable).map(pedido -> {
             BigDecimal valor = pedido.getItempedidos().stream().map(ItemPedido::getMontanteTotal).reduce(BigDecimal.ZERO, (antes, dps) -> antes.add(dps));
             BigDecimal desconto = pedido.getItempedidos().stream().map(ItemPedido::getDesconto).reduce(BigDecimal.ZERO,  (antes, dps) -> antes.add(dps));
 
-            ListagemPedidosDTO.ListagemPedidoCliente cliente = new ListagemPedidosDTO.ListagemPedidoCliente(pedido.getCliente().getId(), pedido.getCliente().getNome());
+            ListagemPedidosVO.ListagemPedidoCliente cliente = new ListagemPedidosVO.ListagemPedidoCliente(pedido.getCliente().getId(), pedido.getCliente().getNome());
 
-            return new ListagemPedidosDTO(pedido.getData(), valor, desconto, Long.valueOf(pedido.getItempedidos().size()), cliente);
+            return new ListagemPedidosVO(pedido.getData(), valor, desconto, Long.valueOf(pedido.getItempedidos().size()), cliente);
         });
 
         return pedidos;
     }
 
     @GetMapping("/{id}")
-    public DetalhePedidoDTO detalhesPedido(@PathVariable("id") Long pedidoId) {
+    public DetalhePedidoVO detalhesPedido(@PathVariable("id") Long pedidoId) {
         Pedido pedido = pedidoService.findById(pedidoId).orElseThrow(() -> new PedidoNaoExisteException(pedidoId));
         return detalhePedidoConverter.converter(pedido);
     }

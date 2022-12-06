@@ -30,7 +30,7 @@ public class ClienteController {
     }
 
     @GetMapping
-    public Page<ListagemClienteDTO> listagemClientes(@PageableDefault(size = 5, sort = "nome", direction = Sort.Direction.ASC) Pageable pageable) {
+    public Page<ListagemClienteVO> listagemClientes(@PageableDefault(size = 5, sort = "nome", direction = Sort.Direction.ASC) Pageable pageable) {
         return clienteService.findAll(pageable).map(listagemClienteConverter::convert);
     }
 

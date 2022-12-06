@@ -1,8 +1,8 @@
 package br.com.alura.clientelo.controller.pedido.dto.converter;
 
-import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoDTO;
-import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoDTO.ClienteDetalhePedidoDTO;
-import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoDTO.DetalheProdutoPedidoDTO;
+import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoVO;
+import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoVO.ClienteDetalhePedidoDTO;
+import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoVO.DetalheProdutoPedidoDTO;
 import br.com.alura.clientelo.dao.PedidoService;
 import br.com.alura.clientelo.modal.Cliente;
 import br.com.alura.clientelo.modal.ItemPedido;
@@ -22,11 +22,11 @@ public class PedidoToDetalhePedidoDtoConverter {
         this.pedidoService = pedidoService;
     }
 
-    public DetalhePedidoDTO converter(Pedido pedido) {
+    public DetalhePedidoVO converter(Pedido pedido) {
         ClienteDetalhePedidoDTO cliente = converterClienteToDTO(pedido.getCliente());
         Set<ItemPedido> itempedidos = Set.copyOf(pedido.getItempedidos());
 
-        return new DetalhePedidoDTO(pedido.getData(), pedido.getPrecoFinal(), pedido.getDescontoTotal(), converterItensPedidoToDTO(itempedidos), cliente);
+        return new DetalhePedidoVO(pedido.getData(), pedido.getPrecoFinal(), pedido.getDescontoTotal(), converterItensPedidoToDTO(itempedidos), cliente);
     }
 
     private ClienteDetalhePedidoDTO converterClienteToDTO(Cliente cliente) {

@@ -1,18 +1,14 @@
 package br.com.alura.clientelo.controller.produto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 public class AtualizarProdutoDTO {
 
     @NotEmpty
-    @Length(min = 2)
+    @Size(min = 2)
     private final String nome;
     @DecimalMin(value = "0.0")
     private final BigDecimal preco;

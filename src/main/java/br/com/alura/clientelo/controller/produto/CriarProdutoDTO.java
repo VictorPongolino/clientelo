@@ -8,11 +8,12 @@ import java.math.BigDecimal;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class CriarProdutoDTO {
 
     @NotNull
-    @Length(min = 2)
+    @Size(min = 2)
     @JsonProperty("nome_produto")
     private final String nomeProduto;
     @DecimalMin("0.1")
@@ -23,6 +24,7 @@ public class CriarProdutoDTO {
     @JsonProperty("quantidade_estoque")
     private final Integer quantidadeEstoque;
     @NotNull
+    @Min(1)
     @JsonProperty("categoria_id")
     private final Integer categoriaId;
 

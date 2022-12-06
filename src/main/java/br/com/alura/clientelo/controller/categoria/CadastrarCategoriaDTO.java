@@ -2,9 +2,11 @@ package br.com.alura.clientelo.controller.categoria;
 
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Size;
+
 public class CadastrarCategoriaDTO {
 
-    @Length(min = 2)
+    @Size(min = 2)
     private final String nome;
 
     public CadastrarCategoriaDTO(String nome) {

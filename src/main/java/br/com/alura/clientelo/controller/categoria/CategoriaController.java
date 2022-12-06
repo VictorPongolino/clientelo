@@ -21,7 +21,7 @@ public class CategoriaController {
         this.cadastrarCategoriaConverter = converter;
     }
 
-    @PatchMapping("/api/categorias/{id}")
+    @PatchMapping("/{id}")
     public void atualizarStatusCategoria(@PathVariable Integer id) {
         Categoria categoria = categoriaService.findById(id).orElseThrow(() -> new CategoriaNaoEncontradaException(id));
         categoria.setStatus(ATIVA.equals(categoria.getStatus()) ? INATIVA : ATIVA);

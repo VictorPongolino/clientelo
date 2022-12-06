@@ -3,27 +3,27 @@ package br.com.alura.clientelo.controller.cliente;
 import br.com.alura.clientelo.validator.Telefone;
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 public class CadastroClienteDTO {
-    @NotEmpty
-    private String nome;
-    @NotEmpty
+    @NotBlank
+    private final String nome;
+    @NotBlank
     @CPF
-    private String cpf;
-    @NotEmpty
+    private final String cpf;
+    @NotBlank
     @Telefone
     private final String telefone;
-    @NotEmpty
+    @NotBlank
     private final String rua;
-    @NotEmpty
+    @NotBlank
     private final String numero;
     private final String complemento;
-    @NotEmpty
+    @NotBlank
     private final String bairro;
-    @NotEmpty
+    @NotBlank
     private final String cidade;
-    @NotEmpty
+    @NotBlank
     private final String estado;
 
     public CadastroClienteDTO(String nome, String cpf, String telefone, String rua, String numero, String complemento, String bairro, String cidade, String estado) {

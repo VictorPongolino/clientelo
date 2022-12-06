@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
-public class DetalhePedidoDTO {
+public class DetalhePedidoVO {
     @JsonProperty("data_pedido")
     private final LocalDate dataPedido;
     private final BigDecimal valor;
@@ -16,7 +16,7 @@ public class DetalhePedidoDTO {
     @JsonProperty("cliente_data")
     private final ClienteDetalhePedidoDTO clienteDetalhePedidoDTO;
 
-    public DetalhePedidoDTO(LocalDate dataPedido, BigDecimal valor, BigDecimal desconto, Set<DetalheProdutoPedidoDTO> detalheProduto, ClienteDetalhePedidoDTO clienteDetalhePedidoDTO) {
+    public DetalhePedidoVO(LocalDate dataPedido, BigDecimal valor, BigDecimal desconto, Set<DetalheProdutoPedidoDTO> detalheProduto, ClienteDetalhePedidoDTO clienteDetalhePedidoDTO) {
         this.dataPedido = dataPedido;
         this.valor = valor;
         this.desconto = desconto;
