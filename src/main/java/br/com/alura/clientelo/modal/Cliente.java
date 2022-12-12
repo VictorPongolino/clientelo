@@ -13,6 +13,8 @@ public class Cliente {
     private String cpf;
     private String telefone;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Usuario usuario;
     @Embedded
     private Endereco endereco;
 
@@ -62,5 +64,13 @@ public class Cliente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

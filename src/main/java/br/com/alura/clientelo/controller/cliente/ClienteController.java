@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.clientelo.dao.ClienteService;
 import br.com.alura.clientelo.modal.Cliente;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 import javax.validation.Valid;
-
+@Api(tags = "Cliente")
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping(name = "/api/clientes", produces="application/json", consumes="application/json")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -30,11 +32,13 @@ public class ClienteController {
     }
 
     @GetMapping
+    @ApiOperation(value = "Lista todos os clientes por paginação")
     public Page<ListagemClienteVO> listagemClientes(@PageableDefault(size = 5, sort = "nome", direction = Sort.Direction.ASC) Pageable pageable) {
         return clienteService.findAll(pageable).map(listagemClienteConverter::convert);
     }
 
     @PostMapping
+    @ApiOperation(value = "Cadastra um cliente")
     public void cadastrar(@RequestBody @Valid CadastroClienteDTO cadastroClienteDTO) {
         Cliente cliente = cadastroClienteDtoTOClienteConverter.convert(cadastroClienteDTO);
         clienteService.cadastrar(cliente);

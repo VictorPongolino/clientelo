@@ -9,5 +9,7 @@ spring:
     generate-ddl: true
     show-sql: true
 
+root_dev_pass: 123
+
 root_dev_pass:
 jwtToken:

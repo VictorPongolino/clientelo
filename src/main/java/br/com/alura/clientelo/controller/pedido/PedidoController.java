@@ -21,11 +21,13 @@ import br.com.alura.clientelo.controller.pedido.dto.CriarPedidoDTO;
 import br.com.alura.clientelo.dao.PedidoService;
 import br.com.alura.clientelo.modal.ItemPedido;
 import br.com.alura.clientelo.modal.Pedido;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 import javax.validation.Valid;
-
+@Api(tags = "Pedido")
 @RestController
-@RequestMapping("/api/pedidos")
+@RequestMapping(name = "/api/pedidos", produces="application/json", consumes="application/json")
 public class PedidoController {
 
     private final CriarPedidoDtoToPedidoConverter criarPedidoDtoToPedidoConverter;
@@ -39,6 +41,7 @@ public class PedidoController {
     }
 
     @GetMapping
+    @ApiOperation(value = "Listar todos os pedidos por paginação")
     public Page<ListagemPedidosVO> listarPedido(@PageableDefault(size = 5, sort = "data", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<ListagemPedidosVO> pedidos = pedidoService.findAll(pageable).map(pedido -> {
             BigDecimal valor = pedido.getItempedidos().stream().map(ItemPedido::getMontanteTotal).reduce(BigDecimal.ZERO, (antes, dps) -> antes.add(dps));
@@ -53,12 +56,15 @@ public class PedidoController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Listar um pedido por ID")
     public DetalhePedidoVO detalhesPedido(@PathVariable("id") Long pedidoId) {
         Pedido pedido = pedidoService.findById(pedidoId).orElseThrow(() -> new PedidoNaoExisteException(pedidoId));
         return detalhePedidoConverter.converter(pedido);
     }
 
+
     @PostMapping
+    @ApiOperation(value = "Criar um pedido")
     public void criarPedido(@RequestBody @Valid CriarPedidoDTO criarPedidoDTO) {
         Pedido pedido = criarPedidoDtoToPedidoConverter.convert(criarPedidoDTO);
         List<ItemPedido> itemPedidoSemEstoque = pedido.getItempedidos().stream().filter(itemPedido -> itemPedido.getProduto().isForaDeEstoque()).collect(Collectors.toList());

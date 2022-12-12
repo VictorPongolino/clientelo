@@ -1,12 +1,15 @@
 package br.com.alura.clientelo.controller.cliente;
 
 import br.com.alura.clientelo.validator.Telefone;
+import io.swagger.annotations.ApiModelProperty;
+
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
 
 public class CadastroClienteDTO {
     @NotBlank
+    @ApiModelProperty(value = "Nome do cliente")
     private final String nome;
     @NotBlank
     @CPF

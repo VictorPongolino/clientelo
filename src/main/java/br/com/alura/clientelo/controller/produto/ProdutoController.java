@@ -2,6 +2,8 @@ package br.com.alura.clientelo.controller.produto;
 
 import br.com.alura.clientelo.dao.ProdutoService;
 import br.com.alura.clientelo.modal.Produto;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-
+@Api(tags = "Produto")
 @RestController
-@RequestMapping("/api/produtos")
+@RequestMapping(name = "/api/produtos", produces="application/json", consumes="application/json")
 public class ProdutoController {
 
     private final ProdutoService produtoService;
@@ -27,17 +29,20 @@ public class ProdutoController {
     }
 
     @PostMapping
+    @ApiOperation(value = "Cadastra um novo produto")
     public void cadastrar(@RequestBody @Valid CriarProdutoDTO produtoDTO) {
         Produto novoProduto = produtoConverter.converter(produtoDTO);
         produtoService.cadastrar(novoProduto);
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "Atualiza os dados de um produto")
     public void atualizarProduto(@PathVariable("id") Long produtoId, @RequestBody @Valid AtualizarProdutoDTO atualizarProduto) {
         produtoService.atualizar(atualizarProdutoToProdutoConverter.convert(produtoId, atualizarProduto));
     }
 
     @GetMapping
+    @ApiOperation(value = "Lista todos os produtos por paginação")
     public Page<ListagemProdutosDTO> listarProdutos(@PageableDefault(size = 5, sort = "nome") Pageable pageable) {
         Page<Produto> produtos = produtoService.listaTodas(pageable);
         return produtos.map(listagemProdutosDTOConverter::converter);
