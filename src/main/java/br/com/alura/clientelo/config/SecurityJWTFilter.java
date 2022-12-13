@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -44,6 +43,16 @@ public class SecurityJWTFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        final String REQUEST_URL = request.getRequestURL().toString().toLowerCase();
+        if (!"GET".equals(request.getMethod())) {
+            return false;
+        }
+
+        return "api/produtos".equals(REQUEST_URL) || "api/categorias".equals(REQUEST_URL);
     }
 
     private void autorizar(final String JWT_TOKEN) {

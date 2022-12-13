@@ -3,6 +3,7 @@ package br.com.alura.clientelo.dao.relatorio;
 import br.com.alura.clientelo.modal.ItemPedido;
 import br.com.alura.clientelo.modal.Pedido;
 import br.com.alura.clientelo.modal.Produto;
+
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;

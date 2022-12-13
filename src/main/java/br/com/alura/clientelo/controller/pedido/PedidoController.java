@@ -6,6 +6,8 @@ import br.com.alura.clientelo.controller.pedido.dto.converter.CriarPedidoDtoToPe
 import br.com.alura.clientelo.controller.pedido.dto.converter.PedidoToDetalhePedidoDtoConverter;
 import br.com.alura.clientelo.controller.pedido.exception.ItensForaDeEstoqueException;
 import br.com.alura.clientelo.controller.pedido.exception.PedidoNaoExisteException;
+
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -66,6 +68,7 @@ public class PedidoController {
 
     @PostMapping
     @ApiOperation(value = "Criar um pedido")
+    @CacheEvict(value = "vendas", allEntries = true)
     public void criarPedido(@RequestBody @Valid CriarPedidoDTO criarPedidoDTO) {
         Pedido pedido = criarPedidoDtoToPedidoConverter.convert(criarPedidoDTO);
         List<ItemPedido> itemPedidoSemEstoque = pedido.getItempedidos().stream().filter(itemPedido -> itemPedido.getProduto().isForaDeEstoque()).collect(Collectors.toList());
