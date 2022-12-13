@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -33,7 +34,6 @@ public class PedidoController {
     private final CriarPedidoDtoToPedidoConverter criarPedidoDtoToPedidoConverter;
     private final PedidoService pedidoService;
     private final PedidoToDetalhePedidoDtoConverter detalhePedidoConverter;
-
     public PedidoController(CriarPedidoDtoToPedidoConverter criarPedidoDtoToPedidoConverter, PedidoService pedidoService, PedidoToDetalhePedidoDtoConverter detalhePedidoConverter) {
         this.criarPedidoDtoToPedidoConverter = criarPedidoDtoToPedidoConverter;
         this.pedidoService = pedidoService;
@@ -56,6 +56,7 @@ public class PedidoController {
     }
 
     @GetMapping("/{id}")
+    @PostAuthorize(value = "returnObject.clienteDetalhePedidoDTO.nome == authentication.principal.nickName")
     @ApiOperation(value = "Listar um pedido por ID")
     public DetalhePedidoVO detalhesPedido(@PathVariable("id") Long pedidoId) {
         Pedido pedido = pedidoService.findById(pedidoId).orElseThrow(() -> new PedidoNaoExisteException(pedidoId));
