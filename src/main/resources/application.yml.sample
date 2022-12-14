@@ -9,7 +9,17 @@ spring:
     generate-ddl: true
     show-sql: true
 
-root_dev_pass: 123
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+    jmx:
+      exposure:
+        include: '*'
+    health:
+      show-details: 'always'
 
 root_dev_pass:
-jwtToken:
+jwt:
+  secret:
+  expiration:

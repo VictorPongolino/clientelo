@@ -3,7 +3,6 @@ package br.com.alura.clientelo.config;
 import br.com.alura.clientelo.modal.Usuario;
 import br.com.alura.clientelo.repository.UsuarioRepository;
 import io.jsonwebtoken.Jwts;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,11 +20,12 @@ import java.util.Optional;
 public class SecurityJWTFilter extends OncePerRequestFilter {
 
     private final UsuarioRepository usuarioRepository;
-    private final String secret;
 
-    public SecurityJWTFilter(UsuarioRepository usuarioRepository, @Value("${jwt.secret}") String secret) {
+    private final JWTProps jwtProps;
+
+    public SecurityJWTFilter(UsuarioRepository usuarioRepository, JWTProps jwtProps) {
         this.usuarioRepository = usuarioRepository;
-        this.secret = secret;
+        this.jwtProps = jwtProps;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class SecurityJWTFilter extends OncePerRequestFilter {
 
     private boolean isTokenValid(String jwtToken) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(jwtToken);
+            Jwts.parser().setSigningKey(jwtProps.getSecret()).parseClaimsJws(jwtToken);
             return true;
         } catch (Exception e) {
             return false;

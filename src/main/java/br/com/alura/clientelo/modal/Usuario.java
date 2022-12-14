@@ -3,8 +3,7 @@ package br.com.alura.clientelo.modal;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -12,8 +11,12 @@ import java.util.Collection;
 @Table(name = "Usuario")
 public class Usuario implements UserDetails {
 
-    private final String username;
-    private final String senha;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String username;
+    private String senha;
+
+    Usuario() {}
 
     public Usuario(String username, String senha) {
         this.username = username;
