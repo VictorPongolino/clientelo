@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 @Api(tags = "Cliente")
 @RestController
-@RequestMapping(name = "/api/clientes", produces="application/json", consumes="application/json")
+@RequestMapping(value = "/api/clientes", produces="application/json", consumes="application/json")
 public class ClienteController {
 
     private final ClienteService clienteService;

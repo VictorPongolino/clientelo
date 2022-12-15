@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 @Api(tags = "Pedido")
 @RestController
-@RequestMapping(name = "/api/pedidos", produces="application/json", consumes="application/json")
+@RequestMapping(value = "/api/pedidos", produces="application/json", consumes="application/json")
 public class PedidoController {
 
     private final CriarPedidoDtoToPedidoConverter criarPedidoDtoToPedidoConverter;

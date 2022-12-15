@@ -20,7 +20,7 @@ import java.util.List;
 
 @Api(tags = "Categoria")
 @RestController
-@RequestMapping(name = "/api/categorias", produces="application/json", consumes="application/json")
+@RequestMapping(value = "/api/categorias", produces="application/json", consumes="application/json")
 public class CategoriaController {
     private final CategoriaService categoriaService;
     private final OperacaoPedidoService operacaoPedidoService;

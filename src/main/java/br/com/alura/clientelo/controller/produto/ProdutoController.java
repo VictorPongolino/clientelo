@@ -14,7 +14,7 @@ import javax.validation.Valid;
 
 @Api(tags = "Produto")
 @RestController
-@RequestMapping(name = "/api/produtos", produces="application/json", consumes="application/json")
+@RequestMapping(value = "/api/produtos", produces="application/json", consumes="application/json")
 public class ProdutoController {
 
     private final ProdutoService produtoService;
