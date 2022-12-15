@@ -30,9 +30,12 @@ public class SwaggerConfig {
         return new ArrayList<>();
     }
 
+    private final Boolean ENABLED = false;
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .enable(ENABLED)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("br.com.alura.clientelo.controller"))
                 .paths(PathSelectors.any())

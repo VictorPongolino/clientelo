@@ -4,25 +4,33 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Profile("prod")
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+@Profile("dev")
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig {
+public class DevSecurityConfig {
 
-    @Value("${management.endpoints.web.base-path}")
-    private String ACTUATOR_PATH;
+    @Value("${root_dev_pass:123}")
+    private String ROOT_DEV_PASS;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -37,12 +45,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                .antMatchers(ACTUATOR_PATH + "/**").hasRole("ADMIN")
+                .anyRequest().permitAll()
                 .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable()
                 .build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+        List<UserDetails> usuarios = new ArrayList<>();
+        usuarios.add(new User("user", passwordEncoder.encode(ROOT_DEV_PASS), Arrays.asList(new SimpleGrantedAuthority("USER"))));
+        usuarios.add(new User("admin", passwordEncoder.encode(ROOT_DEV_PASS), Arrays.asList(new SimpleGrantedAuthority("ADMIN"))));
+
+        return new InMemoryUserDetailsManager(usuarios);
     }
 }
