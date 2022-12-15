@@ -8,6 +8,9 @@ spring:
     hibernate.ddl-auto: create-drop
     generate-ddl: true
     show-sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
 
 management:
   endpoints:
@@ -19,7 +22,7 @@ management:
     health:
       show-details: 'always'
 
-root_dev_pass:
+root_dev_pass: 123
 jwt:
   secret:
   expiration:
