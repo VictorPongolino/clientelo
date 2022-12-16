@@ -1,5 +1,6 @@
 package br.com.alura.clientelo.controller.pedido.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.Min;
@@ -15,6 +16,7 @@ public class CriarPedidoDTO {
     @JsonProperty("pedidos")
     private final Set<CadastroPedidoResultado> cadastroPedidoResultado;
 
+    @JsonCreator
     public CriarPedidoDTO(Long idCliente, Set<CadastroPedidoResultado> cadastroPedidoResultado) {
         this.idCliente = idCliente;
         this.cadastroPedidoResultado = cadastroPedidoResultado;

@@ -30,8 +30,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .antMatchers(ACTUATOR_PATH + "/**").hasRole("ADMIN")
+                .anyRequest().permitAll()
                 .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

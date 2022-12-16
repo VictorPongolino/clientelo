@@ -7,10 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -39,6 +41,8 @@ import br.com.alura.clientelo.modal.Produto;
 @ActiveProfiles("testes")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@WebAppConfiguration
+@AutoConfigureMockMvc(addFilters = false)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 class PedidoControllerTest {
 
@@ -65,7 +69,7 @@ class PedidoControllerTest {
         Pedido ultimoPedido = pedidoService.cadastrar(pedido);
 
         MvcResult resultado = mockMvc.perform(MockMvcRequestBuilders.get("/api/pedidos/{id}", ultimoPedido.getId())
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
@@ -84,8 +88,7 @@ class PedidoControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/pedidos")
                 .content(objectMapper.writeValueAsString(criarPedidoDTO))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 }
