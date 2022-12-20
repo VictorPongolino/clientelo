@@ -1,5 +1,6 @@
 package br.com.alura.clientelo.controller.produto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
@@ -27,6 +28,7 @@ public class CriarProdutoDTO {
     @JsonProperty("categoria_id")
     private final Integer categoriaId;
 
+    @JsonCreator
     public CriarProdutoDTO(String nomeProduto, BigDecimal preco, String descricao, Integer quantidadeEstoque, Integer categoriaId) {
         this.nomeProduto = nomeProduto;
         this.preco = preco;
