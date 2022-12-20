@@ -8,13 +8,17 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 
+import java.net.URI;
+
 @Api(tags = "Produto")
 @RestController
-@RequestMapping(value = "/api/produtos", produces="application/json", consumes="application/json")
 public class ProdutoController {
 
     private final ProdutoService produtoService;
@@ -28,11 +32,13 @@ public class ProdutoController {
         this.atualizarProdutoToProdutoConverter = atualizarProdutoToProdutoConverter;
     }
 
-    @PostMapping
+    @PostMapping("/api/produtos")
     @ApiOperation(value = "Cadastra um novo produto")
-    public void cadastrar(@RequestBody @Valid CriarProdutoDTO produtoDTO) {
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid CriarProdutoDTO produtoDTO, UriComponentsBuilder uriBuilder) {
         Produto novoProduto = produtoConverter.converter(produtoDTO);
-        produtoService.cadastrar(novoProduto);
+        Produto produtoCadastrado = produtoService.cadastrar(novoProduto);
+        URI uri = uriBuilder.path("/api/produtos/{id}").buildAndExpand(produtoCadastrado.getId()).toUri();
+        return ResponseEntity.created(uri).body(produtoCadastrado);
     }
 
     @PutMapping("/{id}")

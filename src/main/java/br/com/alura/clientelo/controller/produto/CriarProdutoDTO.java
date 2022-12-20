@@ -14,22 +14,22 @@ public class CriarProdutoDTO {
 
     @NotNull
     @Size(min = 2)
-    @JsonProperty("nome_produto")
-    private final String nomeProduto;
+    private String nomeProduto;
     @DecimalMin("0.1")
-    private final BigDecimal preco;
-    private final String descricao;
+    private BigDecimal preco;
+    private String descricao;
     @NotNull
     @Min(0)
-    @JsonProperty("quantidade_estoque")
-    private final Integer quantidadeEstoque;
+    private Integer quantidadeEstoque;
     @NotNull
     @Min(1)
-    @JsonProperty("categoria_id")
-    private final Integer categoriaId;
+    private Integer categoriaId;
 
     @JsonCreator
-    public CriarProdutoDTO(String nomeProduto, BigDecimal preco, String descricao, Integer quantidadeEstoque, Integer categoriaId) {
+    public CriarProdutoDTO(
+            @JsonProperty("nome_produto") String nomeProduto, @JsonProperty("preco") BigDecimal preco,
+            @JsonProperty("descricao") String descricao, @JsonProperty("quantidade_estoque") Integer quantidadeEstoque,
+            @JsonProperty("categoria_id") Integer categoriaId) {
         this.nomeProduto = nomeProduto;
         this.preco = preco;
         this.descricao = descricao;
