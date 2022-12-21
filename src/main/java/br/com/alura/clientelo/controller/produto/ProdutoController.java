@@ -1,5 +1,6 @@
 package br.com.alura.clientelo.controller.produto;
 
+import br.com.alura.clientelo.controller.produto.converter.ProdutoToProdutoCriadoDTO;
 import br.com.alura.clientelo.dao.ProdutoService;
 import br.com.alura.clientelo.modal.Produto;
 import io.swagger.annotations.Api;
@@ -10,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -25,19 +25,21 @@ public class ProdutoController {
     private final CriarProdutoDtoToProdutoConverter produtoConverter;
     private final ProdutoToListagemProdutosDTOConverter listagemProdutosDTOConverter;
     private final AtualizarProdutoToProdutoConverter atualizarProdutoToProdutoConverter;
-    public ProdutoController(ProdutoService produtoService, CriarProdutoDtoToProdutoConverter produtoConverter, ProdutoToListagemProdutosDTOConverter listagemProdutosDTOConverter, AtualizarProdutoToProdutoConverter atualizarProdutoToProdutoConverter) {
+    private final ProdutoToProdutoCriadoDTO produtoToProdutoCriadoDTO;
+    public ProdutoController(ProdutoService produtoService, CriarProdutoDtoToProdutoConverter produtoConverter, ProdutoToListagemProdutosDTOConverter listagemProdutosDTOConverter, AtualizarProdutoToProdutoConverter atualizarProdutoToProdutoConverter, ProdutoToProdutoCriadoDTO produtoToProdutoCriadoDTO) {
         this.produtoService = produtoService;
         this.produtoConverter = produtoConverter;
         this.listagemProdutosDTOConverter = listagemProdutosDTOConverter;
         this.atualizarProdutoToProdutoConverter = atualizarProdutoToProdutoConverter;
+        this.produtoToProdutoCriadoDTO = produtoToProdutoCriadoDTO;
     }
 
     @PostMapping("/api/produtos")
     @ApiOperation(value = "Cadastra um novo produto")
-    public ResponseEntity<?> cadastrar(@RequestBody @Valid CriarProdutoDTO produtoDTO, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ProdutoCriadoDTO> cadastrar(@RequestBody @Valid CriarProdutoDTO produtoDTO, UriComponentsBuilder uriBuilder) {
         Produto novoProduto = produtoConverter.converter(produtoDTO);
-        Produto produtoCadastrado = produtoService.cadastrar(novoProduto);
-        URI uri = uriBuilder.path("/api/produtos/{id}").buildAndExpand(produtoCadastrado.getId()).toUri();
+        ProdutoCriadoDTO produtoCadastrado = produtoToProdutoCriadoDTO.convert(produtoService.cadastrar(novoProduto));
+        URI uri = uriBuilder.path("/api/produtos/{id}").buildAndExpand(produtoCadastrado.getProdutoId()).toUri();
         return ResponseEntity.created(uri).body(produtoCadastrado);
     }
 

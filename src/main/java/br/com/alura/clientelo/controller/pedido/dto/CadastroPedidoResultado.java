@@ -1,14 +1,15 @@
 package br.com.alura.clientelo.controller.pedido.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CadastroPedidoResultado {
-    @JsonProperty("produto_id")
+
     private final Long idProduto;
-    @JsonProperty("quantidade_vendida")
     private final Long quantidadeVendida;
 
-    public CadastroPedidoResultado(Long idProduto, Long quantidadeVendida) {
+    @JsonCreator
+    public CadastroPedidoResultado(@JsonProperty("produto_id") Long idProduto, @JsonProperty("quantidade_vendida") Long quantidadeVendida) {
         this.idProduto = idProduto;
         this.quantidadeVendida = quantidadeVendida;
     }

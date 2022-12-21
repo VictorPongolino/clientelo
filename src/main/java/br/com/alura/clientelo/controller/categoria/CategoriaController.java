@@ -7,6 +7,8 @@ import br.com.alura.clientelo.dao.relatorio.RelatorioVendasCategoriaDTO;
 import br.com.alura.clientelo.modal.Categoria;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import springfox.documentation.annotations.Cacheable;
 
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +18,12 @@ import javax.validation.Valid;
 import static br.com.alura.clientelo.modal.Categoria.Status.ATIVA;
 import static br.com.alura.clientelo.modal.Categoria.Status.INATIVA;
 
+import java.net.URI;
 import java.util.List;
 
 @Api(tags = "Categoria")
 @RestController
-@RequestMapping(value = "/api/categorias", produces="application/json", consumes="application/json")
+@RequestMapping(value = "/api/categorias")
 public class CategoriaController {
     private final CategoriaService categoriaService;
     private final OperacaoPedidoService operacaoPedidoService;
@@ -48,7 +51,10 @@ public class CategoriaController {
 
     @PostMapping
     @ApiOperation(value = "Cadastra uma categoria")
-    public void cadastrar(@RequestBody @Valid CadastrarCategoriaDTO categoriaDTO) {
-        categoriaService.cadastrar(cadastrarCategoriaConverter.converter(categoriaDTO));
+    public ResponseEntity<CategoriaCriadaDTO> cadastrar(@RequestBody @Valid CadastrarCategoriaDTO categoriaDTO) {
+        Categoria categoriaCadastrada = categoriaService.cadastrar(cadastrarCategoriaConverter.converter(categoriaDTO));
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(categoriaCadastrada.getId()).toUri();
+        return ResponseEntity.created(location).body(new CategoriaCriadaDTO(categoriaCadastrada.getId(), categoriaCadastrada.getNome()));
     }
 }

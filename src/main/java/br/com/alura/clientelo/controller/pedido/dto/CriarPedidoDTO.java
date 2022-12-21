@@ -11,13 +11,12 @@ import java.util.Set;
 public class CriarPedidoDTO {
     @NotNull
     @Min(1)
-    @JsonProperty("cliente_id")
     private final Long idCliente;
-    @JsonProperty("pedidos")
+
     private final Set<CadastroPedidoResultado> cadastroPedidoResultado;
 
     @JsonCreator
-    public CriarPedidoDTO(Long idCliente, Set<CadastroPedidoResultado> cadastroPedidoResultado) {
+    public CriarPedidoDTO(@JsonProperty("cliente_id") Long idCliente, @JsonProperty("pedidos") Set<CadastroPedidoResultado> cadastroPedidoResultado) {
         this.idCliente = idCliente;
         this.cadastroPedidoResultado = cadastroPedidoResultado;
     }
