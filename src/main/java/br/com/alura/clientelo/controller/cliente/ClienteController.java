@@ -1,5 +1,11 @@
 package br.com.alura.clientelo.controller.cliente;
 
+import br.com.alura.clientelo.controller.cliente.dto.converter.ClienteToCadastroClienteConverter;
+import br.com.alura.clientelo.controller.cliente.vo.converter.CadastroClienteDtoTOClienteConverter;
+import br.com.alura.clientelo.controller.cliente.vo.converter.ClienteToListagemClienteDtoConverter;
+import br.com.alura.clientelo.controller.cliente.vo.CadastroClienteVO;
+import br.com.alura.clientelo.controller.cliente.vo.ListagemClienteVO;
+import br.com.alura.clientelo.modal.cliente.Cliente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.clientelo.dao.ClienteService;
-import br.com.alura.clientelo.modal.Cliente;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -45,7 +50,7 @@ public class ClienteController {
 
     @PostMapping
     @ApiOperation(value = "Cadastra um cliente")
-    public ResponseEntity<CadastroClienteDTO> cadastrar(@RequestBody @Valid CadastroClienteDTO cadastroClienteDTO) {
+    public ResponseEntity<CadastroClienteVO> cadastrar(@RequestBody @Valid CadastroClienteVO cadastroClienteDTO) {
         Cliente cliente = cadastroClienteDtoTOClienteConverter.convert(cadastroClienteDTO);
         Cliente clienteCadastrado = clienteService.cadastrar(cliente);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clienteCadastrado.getId()).toUri();

@@ -1,5 +1,8 @@
 package br.com.alura.clientelo.controller.login;
 
+import br.com.alura.clientelo.controller.login.dto.AuthRequestDTO;
+import br.com.alura.clientelo.dao.authentication.TokenService;
+import br.com.alura.clientelo.dao.authentication.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

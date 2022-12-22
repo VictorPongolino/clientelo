@@ -2,9 +2,12 @@ package br.com.alura.clientelo.controller.pedido;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
+
+import br.com.alura.clientelo.dao.ClienteService;
+import br.com.alura.clientelo.modal.cliente.Cliente;
+import br.com.alura.clientelo.modal.pedido.Pedido;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -30,11 +33,10 @@ import br.com.alura.clientelo.controller.pedido.dto.CriarPedidoDTO;
 import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoVO;
 import br.com.alura.clientelo.dao.PedidoService;
 import br.com.alura.clientelo.modal.Categoria;
-import br.com.alura.clientelo.modal.Cliente;
-import br.com.alura.clientelo.modal.Endereco;
-import br.com.alura.clientelo.modal.ItemPedido;
-import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.modal.cliente.Endereco;
+import br.com.alura.clientelo.modal.pedido.ItemPedido;
 import br.com.alura.clientelo.modal.Produto;
+import org.junit.runner.RunWith;
 
 @ActiveProfiles("testes")
 @RunWith(SpringRunner.class)
@@ -51,9 +53,10 @@ public class PedidoControllerTest {
 
     @MockBean
     private PedidoService pedidoService;
+    @MockBean
+    private ClienteService clienteService;
 
     private Pedido pedido;
-
     @Before
     public void setup() {
         Categoria categoria = new Categoria("CATEGORIA", Categoria.Status.ATIVA);
@@ -70,6 +73,7 @@ public class PedidoControllerTest {
 
         Mockito.when(pedidoService.cadastrar(pedido)).thenReturn(pedido);
         Mockito.when(pedidoService.findById(1L)).thenReturn(Optional.of(pedido));
+        Mockito.when(clienteService.findById(1L)).thenReturn(Optional.of(cliente));
     }
 
 

@@ -1,25 +1,26 @@
 package br.com.alura.clientelo.controller.categoria;
 
+import br.com.alura.clientelo.controller.categoria.dto.CadastrarCategoriaDTO;
+import br.com.alura.clientelo.controller.categoria.dto.converter.CadastrarCategoriaDtoToCategoriaConverter;
+import br.com.alura.clientelo.controller.categoria.exception.CategoriaNaoEncontradaException;
+import br.com.alura.clientelo.controller.categoria.vo.CategoriaCriadaVO;
 import br.com.alura.clientelo.dao.CategoriaService;
-
 import br.com.alura.clientelo.dao.relatorio.OperacaoPedidoService;
-import br.com.alura.clientelo.dao.relatorio.RelatorioVendasCategoriaDTO;
+import br.com.alura.clientelo.dao.relatorio.RelatorioVendasCategoriaVO;
 import br.com.alura.clientelo.modal.Categoria;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import springfox.documentation.annotations.Cacheable;
 
-import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
 
 import static br.com.alura.clientelo.modal.Categoria.Status.ATIVA;
 import static br.com.alura.clientelo.modal.Categoria.Status.INATIVA;
-
-import java.net.URI;
-import java.util.List;
 
 @Api(tags = "Categoria")
 @RestController
@@ -28,9 +29,9 @@ public class CategoriaController {
     private final CategoriaService categoriaService;
     private final OperacaoPedidoService operacaoPedidoService;
 
-    private final CadastrarCategoriaDtoToCategoria cadastrarCategoriaConverter;
+    private final CadastrarCategoriaDtoToCategoriaConverter cadastrarCategoriaConverter;
 
-    public CategoriaController(CategoriaService categoriaService, OperacaoPedidoService operacaoPedidoService, CadastrarCategoriaDtoToCategoria converter) {
+    public CategoriaController(CategoriaService categoriaService, OperacaoPedidoService operacaoPedidoService, CadastrarCategoriaDtoToCategoriaConverter converter) {
         this.categoriaService = categoriaService;
         this.operacaoPedidoService = operacaoPedidoService;
         this.cadastrarCategoriaConverter = converter;
@@ -45,16 +46,16 @@ public class CategoriaController {
 
     @Cacheable("vendas")
     @GetMapping("/vendas")
-    public List<RelatorioVendasCategoriaDTO> relatorioVendas() {
+    public List<RelatorioVendasCategoriaVO> relatorioVendas() {
         return operacaoPedidoService.getVendasPorCategoria();
     }
 
     @PostMapping
     @ApiOperation(value = "Cadastra uma categoria")
-    public ResponseEntity<CategoriaCriadaDTO> cadastrar(@RequestBody @Valid CadastrarCategoriaDTO categoriaDTO) {
+    public ResponseEntity<CategoriaCriadaVO> cadastrar(@RequestBody @Valid CadastrarCategoriaDTO categoriaDTO) {
         Categoria categoriaCadastrada = categoriaService.cadastrar(cadastrarCategoriaConverter.converter(categoriaDTO));
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(categoriaCadastrada.getId()).toUri();
-        return ResponseEntity.created(location).body(new CategoriaCriadaDTO(categoriaCadastrada.getId(), categoriaCadastrada.getNome()));
+        return ResponseEntity.created(location).body(new CategoriaCriadaVO(categoriaCadastrada.getId(), categoriaCadastrada.getNome()));
     }
 }

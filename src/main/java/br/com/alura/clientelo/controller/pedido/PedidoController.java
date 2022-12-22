@@ -1,12 +1,12 @@
 package br.com.alura.clientelo.controller.pedido;
 
-import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoVO;
-import br.com.alura.clientelo.controller.pedido.dto.ListagemPedidosVO;
+import br.com.alura.clientelo.controller.pedido.dto.*;
 import br.com.alura.clientelo.controller.pedido.dto.converter.CriarPedidoDtoToPedidoConverter;
 import br.com.alura.clientelo.controller.pedido.dto.converter.PedidoToDetalhePedidoDtoConverter;
 import br.com.alura.clientelo.controller.pedido.exception.ItensForaDeEstoqueException;
 import br.com.alura.clientelo.controller.pedido.exception.PedidoNaoExisteException;
 
+import br.com.alura.clientelo.modal.pedido.Pedido;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,10 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.com.alura.clientelo.controller.pedido.dto.CriarPedidoDTO;
 import br.com.alura.clientelo.dao.PedidoService;
-import br.com.alura.clientelo.modal.ItemPedido;
-import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.modal.pedido.ItemPedido;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

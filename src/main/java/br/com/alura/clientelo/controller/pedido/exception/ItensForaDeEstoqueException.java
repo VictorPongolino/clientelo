@@ -1,7 +1,6 @@
 package br.com.alura.clientelo.controller.pedido.exception;
 
-import br.com.alura.clientelo.modal.ItemPedido;
-import br.com.alura.clientelo.modal.Produto;
+import br.com.alura.clientelo.modal.pedido.ItemPedido;
 
 import java.util.List;
 

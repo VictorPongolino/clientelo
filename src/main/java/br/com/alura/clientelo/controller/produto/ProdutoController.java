@@ -1,6 +1,13 @@
 package br.com.alura.clientelo.controller.produto;
 
-import br.com.alura.clientelo.controller.produto.converter.ProdutoToProdutoCriadoDTO;
+import br.com.alura.clientelo.controller.produto.converter.AtualizarProdutoToProdutoConverter;
+import br.com.alura.clientelo.controller.produto.converter.CriarProdutoDtoToProdutoConverter;
+import br.com.alura.clientelo.controller.produto.converter.ProdutoToListagemProdutosDTOConverter;
+import br.com.alura.clientelo.controller.produto.converter.ProdutoToProdutoCriadoDTOConverter;
+import br.com.alura.clientelo.controller.produto.dto.AtualizarProdutoDTO;
+import br.com.alura.clientelo.controller.produto.dto.CriarProdutoDTO;
+import br.com.alura.clientelo.controller.produto.dto.ListagemProdutosDTO;
+import br.com.alura.clientelo.controller.produto.dto.ProdutoCriadoDTO;
 import br.com.alura.clientelo.dao.ProdutoService;
 import br.com.alura.clientelo.modal.Produto;
 import io.swagger.annotations.Api;
@@ -25,8 +32,8 @@ public class ProdutoController {
     private final CriarProdutoDtoToProdutoConverter produtoConverter;
     private final ProdutoToListagemProdutosDTOConverter listagemProdutosDTOConverter;
     private final AtualizarProdutoToProdutoConverter atualizarProdutoToProdutoConverter;
-    private final ProdutoToProdutoCriadoDTO produtoToProdutoCriadoDTO;
-    public ProdutoController(ProdutoService produtoService, CriarProdutoDtoToProdutoConverter produtoConverter, ProdutoToListagemProdutosDTOConverter listagemProdutosDTOConverter, AtualizarProdutoToProdutoConverter atualizarProdutoToProdutoConverter, ProdutoToProdutoCriadoDTO produtoToProdutoCriadoDTO) {
+    private final ProdutoToProdutoCriadoDTOConverter produtoToProdutoCriadoDTO;
+    public ProdutoController(ProdutoService produtoService, CriarProdutoDtoToProdutoConverter produtoConverter, ProdutoToListagemProdutosDTOConverter listagemProdutosDTOConverter, AtualizarProdutoToProdutoConverter atualizarProdutoToProdutoConverter, ProdutoToProdutoCriadoDTOConverter produtoToProdutoCriadoDTO) {
         this.produtoService = produtoService;
         this.produtoConverter = produtoConverter;
         this.listagemProdutosDTOConverter = listagemProdutosDTOConverter;

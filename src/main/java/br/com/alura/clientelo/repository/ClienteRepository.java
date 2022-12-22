@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.repository;
 
-import br.com.alura.clientelo.modal.Cliente;
+import br.com.alura.clientelo.modal.cliente.Cliente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

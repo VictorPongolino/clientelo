@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.controller;
 
-import br.com.alura.clientelo.controller.categoria.CategoriaNaoEncontradaException;
+import br.com.alura.clientelo.controller.categoria.exception.CategoriaNaoEncontradaException;
 import br.com.alura.clientelo.controller.pedido.exception.ClienteNotFoundException;
 import br.com.alura.clientelo.controller.pedido.exception.ItensForaDeEstoqueException;
 import br.com.alura.clientelo.controller.pedido.exception.PedidoNaoExisteException;

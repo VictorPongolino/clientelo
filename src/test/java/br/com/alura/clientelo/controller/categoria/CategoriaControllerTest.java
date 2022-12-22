@@ -1,5 +1,6 @@
 package br.com.alura.clientelo.controller.categoria;
 
+import br.com.alura.clientelo.controller.categoria.dto.CadastrarCategoriaDTO;
 import br.com.alura.clientelo.dao.CategoriaService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

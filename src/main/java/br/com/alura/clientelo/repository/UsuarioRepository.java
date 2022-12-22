@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.repository;
 
-import br.com.alura.clientelo.modal.Usuario;
+import br.com.alura.clientelo.modal.authentication.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

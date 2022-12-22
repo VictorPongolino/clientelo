@@ -1,9 +1,9 @@
 package br.com.alura.clientelo.dao.relatorio;
 
-import br.com.alura.clientelo.modal.ItemPedido;
-import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.modal.pedido.ItemPedido;
 import br.com.alura.clientelo.modal.Produto;
 
+import br.com.alura.clientelo.modal.pedido.Pedido;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -17,14 +17,14 @@ public class OperacaoPedidoService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<RelatorioVendasCategoriaDTO> getVendasPorCategoria() {
-        String jpql = "SELECT NEW " + RelatorioVendasCategoriaDTO.class.getName() + "(c.nome, SUM(i.quantidade), SUM(i.precoUnitario * i.quantidade)) " +
+    public List<RelatorioVendasCategoriaVO> getVendasPorCategoria() {
+        String jpql = "SELECT NEW " + RelatorioVendasCategoriaVO.class.getName() + "(c.nome, SUM(i.quantidade), SUM(i.precoUnitario * i.quantidade)) " +
                       "FROM " + Pedido.class.getName() + " p " +
                       "JOIN p.itempedidos i " +
                       "JOIN i.produto.categoria c " +
                       "GROUP BY c.nome " +
                       "ORDER BY c.nome ASC";
-        TypedQuery<RelatorioVendasCategoriaDTO> query = entityManager.createQuery(jpql, RelatorioVendasCategoriaDTO.class);
+        TypedQuery<RelatorioVendasCategoriaVO> query = entityManager.createQuery(jpql, RelatorioVendasCategoriaVO.class);
         return query.getResultList();
     }
 

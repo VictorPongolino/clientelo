@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.dao;
 
-import br.com.alura.clientelo.modal.Cliente;
+import br.com.alura.clientelo.modal.cliente.Cliente;
 import br.com.alura.clientelo.repository.ClienteRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +18,7 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    public Optional<Cliente> buscarPorId(Long clienteId) {
+    public Optional<Cliente> findById(Long clienteId) {
         return clienteRepository.findById(clienteId);
     }
     @Transactional

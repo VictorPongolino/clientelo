@@ -2,6 +2,8 @@ package br.com.alura.clientelo.controller.pedido.dto.converter;
 
 import br.com.alura.clientelo.controller.pedido.dto.CriarPedidoDTO;
 import br.com.alura.clientelo.controller.pedido.exception.ClienteNotFoundException;
+import br.com.alura.clientelo.modal.cliente.Cliente;
+import br.com.alura.clientelo.modal.pedido.Pedido;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -9,9 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import br.com.alura.clientelo.modal.Cliente;
-import br.com.alura.clientelo.modal.ItemPedido;
-import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.modal.pedido.ItemPedido;
 import br.com.alura.clientelo.modal.Produto;
 import br.com.alura.clientelo.repository.ClienteRepository;
 import br.com.alura.clientelo.repository.ProdutoRepository;

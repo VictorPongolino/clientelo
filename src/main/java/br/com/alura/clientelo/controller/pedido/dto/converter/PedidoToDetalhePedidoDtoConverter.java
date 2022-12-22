@@ -4,10 +4,10 @@ import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoVO;
 import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoVO.ClienteDetalhePedidoDTO;
 import br.com.alura.clientelo.controller.pedido.dto.DetalhePedidoVO.DetalheProdutoPedidoDTO;
 import br.com.alura.clientelo.dao.PedidoService;
-import br.com.alura.clientelo.modal.Cliente;
-import br.com.alura.clientelo.modal.ItemPedido;
-import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.modal.cliente.Cliente;
+import br.com.alura.clientelo.modal.pedido.ItemPedido;
 import br.com.alura.clientelo.modal.Produto;
+import br.com.alura.clientelo.modal.pedido.Pedido;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;

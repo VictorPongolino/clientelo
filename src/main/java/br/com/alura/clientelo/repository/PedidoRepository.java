@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.repository;
 
-import br.com.alura.clientelo.modal.Pedido;
+import br.com.alura.clientelo.modal.pedido.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
