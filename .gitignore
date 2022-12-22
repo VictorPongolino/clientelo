@@ -3,4 +3,7 @@
 *.iml
 *.ipr
 
+.env
+.yml
+
 target/
